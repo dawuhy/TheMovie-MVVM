@@ -17,20 +17,22 @@ class HomePageViewController: UIViewController {
             collectionViewMovie.reloadData()
         }
     }
+    private var output: HomePageViewModel.Output?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpView()
-//        viewModel.loadDataAction?()
-        viewModel.getMovie(page: 1, type: .popular)
         bindViewModel()
+        output?.loadDataAction?(1,.popular)
     }
     
     private func bindViewModel() {
-        viewModel.registerActions {[weak self] (movieResult) in
-            self?.data = movieResult.arrayMovie
+        let input = HomePageViewModel.Input {[weak self] (result) in
+            self?.data = result.arrayMovie
         }
+        
+        self.output = viewModel.bindAction(input: input)
     }
     
     func setUpView() {
