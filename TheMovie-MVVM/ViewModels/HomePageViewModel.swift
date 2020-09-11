@@ -13,10 +13,6 @@ typealias LoadDataAction = (Int, MovieType) -> Void
 
 class HomePageViewModel {
     
-    private let service = MovieServie()
-    var input: Input?
-    var output: Output?
-    
     struct Input {
        var receivedDataAction: ReceivedDataAction?
     }
@@ -25,10 +21,14 @@ class HomePageViewModel {
         var loadDataAction: LoadDataAction?
     }
     
+    private let service = MovieServie()
+    var input: Input?
+//    var output: Output?
+    
     func bindAction(input: HomePageViewModel.Input) -> HomePageViewModel.Output {
         self.input = input
         
-        let loadDataAction: LoadDataAction?  = {[weak self] (page, type) in
+        let loadDataAction: LoadDataAction? = { [weak self] (page, type) in
             self?.getMovie(page: page, type: type)
         }
         
@@ -36,17 +36,13 @@ class HomePageViewModel {
     }
 
     private func getMovie(page: Int, type: MovieType) {
-        service.getMovies(page: page, typeMovie: type) { (result) in
+        service.getMovies(page: page, typeMovie: type) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
             case .success(let movieResult):
-                self.input?.receivedDataAction?(movieResult)
+                self?.input?.receivedDataAction?(movieResult)
             }
         }
-    }
-    
-    deinit {
-        print("HomePageViewModel deinit")
     }
 }
