@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OLa-3e-ZPX">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home page-->
+        <scene sceneID="xHl-jD-Rz9">
+            <objects>
+                <viewController title="Home page" id="MSI-5r-n4v" customClass="HomePageViewController" customModule="TheMovie_MVVM" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jfc-G6-3aR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1344"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U43-x5-dYr">
+                                <rect key="frame" x="0.0" y="88" width="414" height="1222"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BDy-rE-Nya">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1833"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j87-bh-hCN">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="611"/>
+                                                <color key="backgroundColor" systemColor="systemGray3Color" red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6aG-Dk-9cj" userLabel="Popular Movie Child View">
+                                                <rect key="frame" x="0.0" y="611" width="414" height="611"/>
+                                                <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pBm-WO-RTP" userLabel="Now Playing Movie Child View">
+                                                <rect key="frame" x="0.0" y="1222" width="414" height="611"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="6aG-Dk-9cj" firstAttribute="top" secondItem="j87-bh-hCN" secondAttribute="bottom" id="2H0-Sf-x0K"/>
+                                            <constraint firstItem="6aG-Dk-9cj" firstAttribute="leading" secondItem="BDy-rE-Nya" secondAttribute="leading" id="32Z-zO-laG"/>
+                                            <constraint firstItem="j87-bh-hCN" firstAttribute="top" secondItem="BDy-rE-Nya" secondAttribute="top" id="LSY-TB-49t"/>
+                                            <constraint firstAttribute="trailing" secondItem="pBm-WO-RTP" secondAttribute="trailing" id="PAA-mr-DZ1"/>
+                                            <constraint firstItem="pBm-WO-RTP" firstAttribute="leading" secondItem="BDy-rE-Nya" secondAttribute="leading" id="Vm7-oM-YVQ"/>
+                                            <constraint firstItem="pBm-WO-RTP" firstAttribute="height" secondItem="6aG-Dk-9cj" secondAttribute="height" id="WND-lP-c7U"/>
+                                            <constraint firstItem="6aG-Dk-9cj" firstAttribute="height" secondItem="j87-bh-hCN" secondAttribute="height" id="Xxz-rf-n66"/>
+                                            <constraint firstItem="pBm-WO-RTP" firstAttribute="top" secondItem="6aG-Dk-9cj" secondAttribute="bottom" id="gnp-Rm-xu1"/>
+                                            <constraint firstAttribute="trailing" secondItem="j87-bh-hCN" secondAttribute="trailing" id="lRY-Dy-hBS"/>
+                                            <constraint firstItem="j87-bh-hCN" firstAttribute="leading" secondItem="BDy-rE-Nya" secondAttribute="leading" id="tXI-fG-Doy"/>
+                                            <constraint firstAttribute="trailing" secondItem="6aG-Dk-9cj" secondAttribute="trailing" id="ytK-E4-TBM"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="BDy-rE-Nya" firstAttribute="leading" secondItem="U43-x5-dYr" secondAttribute="leading" id="JXO-DY-B91"/>
+                                    <constraint firstItem="BDy-rE-Nya" firstAttribute="height" secondItem="U43-x5-dYr" secondAttribute="height" priority="250" id="KU4-Vq-x4Z"/>
+                                    <constraint firstItem="BDy-rE-Nya" firstAttribute="width" secondItem="U43-x5-dYr" secondAttribute="width" id="N12-2j-meV"/>
+                                    <constraint firstAttribute="bottom" secondItem="pBm-WO-RTP" secondAttribute="bottom" id="ayS-2y-JMI"/>
+                                    <constraint firstAttribute="bottom" secondItem="BDy-rE-Nya" secondAttribute="bottom" id="ebi-mY-IyZ"/>
+                                    <constraint firstItem="BDy-rE-Nya" firstAttribute="top" secondItem="U43-x5-dYr" secondAttribute="top" id="fxP-g3-6Wv"/>
+                                    <constraint firstAttribute="trailing" secondItem="BDy-rE-Nya" secondAttribute="trailing" id="gAp-ZB-2d5"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="U43-x5-dYr" firstAttribute="leading" secondItem="JlY-hu-DFb" secondAttribute="leading" id="QzD-2S-TgQ"/>
+                            <constraint firstItem="JlY-hu-DFb" firstAttribute="trailing" secondItem="U43-x5-dYr" secondAttribute="trailing" id="Wzd-zk-5Ea"/>
+                            <constraint firstItem="JlY-hu-DFb" firstAttribute="bottom" secondItem="U43-x5-dYr" secondAttribute="bottom" id="c8E-Bt-t3d"/>
+                            <constraint firstItem="j87-bh-hCN" firstAttribute="height" secondItem="JlY-hu-DFb" secondAttribute="height" multiplier="0.5" id="d9Q-GA-DPR"/>
+                            <constraint firstItem="U43-x5-dYr" firstAttribute="top" secondItem="JlY-hu-DFb" secondAttribute="top" id="h4N-WR-6zz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JlY-hu-DFb"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Cn9-z5-vBC"/>
+                    <size key="freeformSize" width="414" height="1344"/>
+                    <connections>
+                        <outlet property="nowPlayingMovieChildView" destination="pBm-WO-RTP" id="Hcu-8O-0jT"/>
+                        <outlet property="popularMovieChildView" destination="6aG-Dk-9cj" id="MLH-Vx-BnY"/>
+                        <outlet property="topRatedMovieChildView" destination="j87-bh-hCN" id="qZB-ls-SPR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hoO-dN-GGI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-913.04347826086962" y="-68.303571428571431"/>
+        </scene>
+        <!--Home Page-->
+        <scene sceneID="pY8-fC-Q5B">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OLa-3e-ZPX" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home Page" image="house" catalog="system" id="aRk-oY-okv"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dhT-xI-nMj">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="MSI-5r-n4v" kind="relationship" relationship="rootViewController" id="ktL-IM-Cb0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aPF-MS-kLD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1823.1884057971015" y="-68.303571428571431"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="house" catalog="system" width="128" height="110"/>
+    </resources>
+</document>
