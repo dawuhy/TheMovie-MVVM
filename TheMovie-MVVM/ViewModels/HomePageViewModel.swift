@@ -14,7 +14,10 @@ typealias VoidAction = () -> Void
 class HomePageViewModel {
  
     private let service = MovieServie()
+    
+    // Input
     private var receivedDataAction: ReceivedDataAction?
+    // Output
     var loadDataAction: VoidAction?
     
     init() {
