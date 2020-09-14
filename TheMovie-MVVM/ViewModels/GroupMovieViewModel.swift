@@ -11,7 +11,7 @@ import Foundation
 typealias ReceivedDataAction = (MovieResult) -> Void
 typealias LoadDataAction = (Int, MovieType) -> Void
 
-class MovieViewModel {
+class GroupMovieViewModel {
     
     struct Input {
        var receivedDataAction: ReceivedDataAction?
@@ -25,7 +25,7 @@ class MovieViewModel {
     var input: Input?
 //    var output: Output?
     
-    func bindAction(input: MovieViewModel.Input) -> MovieViewModel.Output {
+    func bindAction(input: GroupMovieViewModel.Input) -> GroupMovieViewModel.Output {
         self.input = input
         
         let loadDataAction: LoadDataAction? = { [weak self] (page, type) in

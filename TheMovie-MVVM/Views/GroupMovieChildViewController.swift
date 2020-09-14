@@ -1,5 +1,5 @@
 //
-//  MovieChildViewController.swift
+//  GroupMovieChildViewController.swift
 //  TheMovie-MVVM
 //
 //  Created by Huy on 9/11/20.
@@ -14,8 +14,8 @@ class GroupMovieChildViewController: UIViewController {
     @IBOutlet weak var titleHeaderLabel: UILabel!
     @IBOutlet weak var movieCollectionView: UICollectionView!
     // ViewModels
-    private let viewModel = MovieViewModel()
-    private var output: MovieViewModel.Output?
+    private let viewModel = GroupMovieViewModel()
+    private var output: GroupMovieViewModel.Output?
     // Data
     private var arrayMovie = [Movie]() {
         didSet {
@@ -40,7 +40,7 @@ class GroupMovieChildViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        let input = MovieViewModel.Input { [weak self] (result) in
+        let input = GroupMovieViewModel.Input { [weak self] (result) in
             self?.arrayMovie = result.arrayMovie
         }
         self.output = viewModel.bindAction(input: input)
@@ -56,7 +56,7 @@ class GroupMovieChildViewController: UIViewController {
     }
     
     @IBAction func didTapSeeAllButton(_ sender: Any) {
-        let listMovieViewController = ListMovieViewController()
+        let listMovieViewController = SeeAllMovieViewController()
         listMovieViewController.movieType = movieType
         parent?.navigationController?.pushViewController(listMovieViewController, animated: true)
     }
