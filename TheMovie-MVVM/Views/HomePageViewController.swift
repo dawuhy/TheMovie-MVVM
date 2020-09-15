@@ -22,8 +22,9 @@ class HomePageViewController: UIViewController {
         super.viewDidLoad()
         
         setUpView()
-        viewModel.loadDataAction?()
+        
         bindViewModel()
+        viewModel.loadDataAction?(1, .popular)
     }
     
     private func bindViewModel() {

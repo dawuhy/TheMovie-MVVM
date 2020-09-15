@@ -9,7 +9,7 @@
 import Foundation
 
 typealias ReceivedDataAction = (MovieResult) -> Void
-typealias VoidAction = () -> Void
+typealias LoadDataAction = (Int, MovieType) -> Void
 
 class HomePageViewModel {
  
@@ -18,11 +18,11 @@ class HomePageViewModel {
     // Input
     private var receivedDataAction: ReceivedDataAction?
     // Output
-    var loadDataAction: VoidAction?
+    var loadDataAction: LoadDataAction?
     
     init() {
-        loadDataAction = { [weak self] in
-            self?.getMovie(page: 1, type: .popular)
+        loadDataAction = { [weak self] (page, movieType) in
+            self?.getMovie(page: page, type: movieType)
         }
     }
     
