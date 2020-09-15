@@ -1,5 +1,5 @@
 //
-//  HomePageViewModel.swift
+//  GroupMovieViewModel.swift
 //  TheMovie-MVVM
 //
 //  Created by Huy on 9/10/20.
@@ -8,13 +8,15 @@
 
 import Foundation
 
-typealias ReceivedDataAction = (MovieResult) -> Void
-typealias LoadDataAction = (Int, MovieType) -> Void
+
 
 class GroupMovieViewModel {
     
+    typealias ReceivedDataAction = (MovieResult) -> Void
+    typealias LoadDataAction = (Int, MovieType) -> Void
+    
     struct Input {
-       var receivedDataAction: ReceivedDataAction?
+        var receivedDataAction: ReceivedDataAction?
     }
     
     struct Output {
@@ -23,7 +25,6 @@ class GroupMovieViewModel {
     
     private let service = MovieServie()
     var input: Input?
-//    var output: Output?
     
     func bindAction(input: GroupMovieViewModel.Input) -> GroupMovieViewModel.Output {
         self.input = input
@@ -44,5 +45,9 @@ class GroupMovieViewModel {
                 self?.input?.receivedDataAction?(movieResult)
             }
         }
+    }
+    
+    deinit {
+        print("GroupMovieViewModel deinit")
     }
 }

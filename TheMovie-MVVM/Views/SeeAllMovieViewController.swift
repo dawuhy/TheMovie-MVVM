@@ -40,8 +40,8 @@ class SeeAllMovieViewController: UIViewController {
     }
 
     func bindViewModel() {
-        let input = GroupMovieViewModel.Input { [weak self] (result) in
-            self?.arrayMovie = result.arrayMovie
+        let input = GroupMovieViewModel.Input { [weak self] (movieResult) in
+            self?.arrayMovie.append(contentsOf: movieResult.arrayMovie)
         }
         self.output = viewModel.bindAction(input: input)
     }
@@ -63,7 +63,23 @@ extension SeeAllMovieViewController: UICollectionViewDataSource {
 }
 
 extension SeeAllMovieViewController: UICollectionViewDelegate {
-
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if movieCollectionView.contentOffset.y >= (movieCollectionView.contentSize.height - movieCollectionView.frame.size.height) {
+            // MARK: Load more movie
+            page += 1
+            output?.loadDataAction?(page, movieType)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "MovieDetailStoryboard", bundle: nil)
+        let movieDetailViewController = storyboard.instantiateViewController(identifier: "MovieDetailViewController") as! MovieDetailViewController
+        
+        let movie = arrayMovie[indexPath.row]
+        movieDetailViewController.movie = movie
+        
+        navigationController?.pushViewController(movieDetailViewController, animated: true)
+    }
 }
 
 extension SeeAllMovieViewController: UICollectionViewDelegateFlowLayout {

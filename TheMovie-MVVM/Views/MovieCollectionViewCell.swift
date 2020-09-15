@@ -42,4 +42,10 @@ class MovieCollectionViewCell: UICollectionViewCell {
             }
         }
     }
+    
+    override func prepareForReuse() {
+        posterImageView.image = nil
+        titleLabel.text = ""
+        heartButton.isHidden = true
+    }
 }
