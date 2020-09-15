@@ -8,19 +8,17 @@
 
 import Foundation
 
-
-
 class GroupMovieViewModel {
     
     typealias ReceivedDataAction = (MovieResult) -> Void
-    typealias LoadDataAction = (Int, MovieType) -> Void
+    typealias GetMovieAction = (Int, MovieType) -> Void
     
     struct Input {
         var receivedDataAction: ReceivedDataAction?
     }
     
     struct Output {
-        var loadDataAction: LoadDataAction?
+        var getMovie: GetMovieAction?
     }
     
     private let service = MovieServie()
@@ -29,11 +27,11 @@ class GroupMovieViewModel {
     func bindAction(input: GroupMovieViewModel.Input) -> GroupMovieViewModel.Output {
         self.input = input
         
-        let loadDataAction: LoadDataAction? = { [weak self] (page, type) in
+        let getMovie: GetMovieAction? = { [weak self] (page, type) in
             self?.getMovie(page: page, type: type)
         }
         
-       return Output(loadDataAction: loadDataAction)
+       return Output(getMovie: getMovie)
     }
 
     private func getMovie(page: Int, type: MovieType) {

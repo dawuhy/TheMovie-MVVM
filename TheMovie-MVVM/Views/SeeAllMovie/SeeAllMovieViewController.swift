@@ -27,7 +27,7 @@ class SeeAllMovieViewController: UIViewController {
 
         setUpView()
         bindViewModel()
-        output?.loadDataAction?(page, movieType)
+        output?.getMovie?(page, movieType)
     }
 
     func setUpView() {
@@ -67,7 +67,7 @@ extension SeeAllMovieViewController: UICollectionViewDelegate {
         if movieCollectionView.contentOffset.y >= (movieCollectionView.contentSize.height - movieCollectionView.frame.size.height) {
             // MARK: Load more movie
             page += 1
-            output?.loadDataAction?(page, movieType)
+            output?.getMovie?(page, movieType)
         }
     }
     

@@ -16,6 +16,7 @@ enum MovieAPI {
     case searchMovie(movieName:String)
     case getSimilarMovies(movieId: Int, page:Int)
     case searchPeople(name: String)
+    case getCasts(movieID: Int)
 }
 
 extension MovieAPI: TargetType {
@@ -37,6 +38,8 @@ extension MovieAPI: TargetType {
             return "/movie/\(movieId)/similar"
         case .searchPeople:
             return "/search/person"
+        case .getCasts(movieID: let movieID):
+            return "/movie/\(movieID)/credits"
         }
     }
     
@@ -53,6 +56,8 @@ extension MovieAPI: TargetType {
         case .getSimilarMovies:
             return .get
         case .searchPeople:
+            return .get
+        case .getCasts:
             return .get
         }
     }
@@ -71,6 +76,8 @@ extension MovieAPI: TargetType {
             return .requestParameters(parameters: ["movie_id": "\(movieId)", "page": "\(page)"], encoding: URLEncoding.default)
         case .searchPeople(name: let name):
             return .requestParameters(parameters: ["query": "\(name)"], encoding: URLEncoding.default)
+        case .getCasts(movieID: _):
+            return .requestParameters(parameters: ["": ""], encoding: URLEncoding.default)
         }
     }
     

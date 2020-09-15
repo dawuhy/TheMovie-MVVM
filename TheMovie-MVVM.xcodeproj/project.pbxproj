@@ -11,6 +11,12 @@
 		D94E039A250B2A5400E7C980 /* GroupMovieChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E0399250B2A5400E7C980 /* GroupMovieChildViewController.swift */; };
 		D94E039C250B319F00E7C980 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E039B250B319F00E7C980 /* HomePageViewController.swift */; };
 		D94E039F250B57BC00E7C980 /* HomePageStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D94E039E250B57BC00E7C980 /* HomePageStoryBoard.storyboard */; };
+		D94F656725106469005EF37A /* GroupCastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94F656525106469005EF37A /* GroupCastViewController.swift */; };
+		D94F656825106469005EF37A /* GroupCastViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94F656625106469005EF37A /* GroupCastViewController.xib */; };
+		D94F656A2510661B005EF37A /* GroupCastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94F65692510661B005EF37A /* GroupCastViewModel.swift */; };
+		D94F657325106A1E005EF37A /* Cast.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94F657225106A1E005EF37A /* Cast.swift */; };
+		D94F657625106DCE005EF37A /* CastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94F657425106DCE005EF37A /* CastCollectionViewCell.swift */; };
+		D94F657725106DCE005EF37A /* CastCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94F657525106DCE005EF37A /* CastCollectionViewCell.xib */; };
 		D95B4F602509B8FD006E5165 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95B4F5F2509B8FD006E5165 /* AppDelegate.swift */; };
 		D95B4F622509B8FD006E5165 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95B4F612509B8FD006E5165 /* SceneDelegate.swift */; };
 		D95B4F672509B8FD006E5165 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D95B4F652509B8FD006E5165 /* Main.storyboard */; };
@@ -41,6 +47,12 @@
 		D94E0399250B2A5400E7C980 /* GroupMovieChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMovieChildViewController.swift; sourceTree = "<group>"; };
 		D94E039B250B319F00E7C980 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		D94E039E250B57BC00E7C980 /* HomePageStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomePageStoryBoard.storyboard; sourceTree = "<group>"; };
+		D94F656525106469005EF37A /* GroupCastViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCastViewController.swift; sourceTree = "<group>"; };
+		D94F656625106469005EF37A /* GroupCastViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupCastViewController.xib; sourceTree = "<group>"; };
+		D94F65692510661B005EF37A /* GroupCastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCastViewModel.swift; sourceTree = "<group>"; };
+		D94F657225106A1E005EF37A /* Cast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cast.swift; sourceTree = "<group>"; };
+		D94F657425106DCE005EF37A /* CastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastCollectionViewCell.swift; sourceTree = "<group>"; };
+		D94F657525106DCE005EF37A /* CastCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CastCollectionViewCell.xib; sourceTree = "<group>"; };
 		D95B4F5C2509B8FD006E5165 /* TheMovie-MVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TheMovie-MVVM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D95B4F5F2509B8FD006E5165 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D95B4F612509B8FD006E5165 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +127,75 @@
 			path = Storyboard;
 			sourceTree = "<group>";
 		};
+		D94F656B251066CA005EF37A /* MovieCell */ = {
+			isa = PBXGroup;
+			children = (
+				D95B4F832509C949006E5165 /* MovieCollectionViewCell.swift */,
+				D95B4F842509C949006E5165 /* MovieCollectionViewCell.xib */,
+			);
+			path = MovieCell;
+			sourceTree = "<group>";
+		};
+		D94F656C251066E1005EF37A /* SeeAllMovie */ = {
+			isa = PBXGroup;
+			children = (
+				D98C0851250EFFA400F0FC67 /* SeeAllMovieViewController.swift */,
+				D98C0852250EFFA400F0FC67 /* SeeAllMovieViewController.xib */,
+			);
+			path = SeeAllMovie;
+			sourceTree = "<group>";
+		};
+		D94F656D2510672B005EF37A /* YoutubeVideo */ = {
+			isa = PBXGroup;
+			children = (
+				D98C0859250F3FBF00F0FC67 /* YoutubeVideoChildViewController.swift */,
+				D98C085A250F3FBF00F0FC67 /* YoutubeVideoChildViewController.xib */,
+			);
+			path = YoutubeVideo;
+			sourceTree = "<group>";
+		};
+		D94F656E25106752005EF37A /* GroupCast */ = {
+			isa = PBXGroup;
+			children = (
+				D94F656525106469005EF37A /* GroupCastViewController.swift */,
+				D94F656625106469005EF37A /* GroupCastViewController.xib */,
+			);
+			path = GroupCast;
+			sourceTree = "<group>";
+		};
+		D94F656F25106774005EF37A /* GroupMovie */ = {
+			isa = PBXGroup;
+			children = (
+				D94E0399250B2A5400E7C980 /* GroupMovieChildViewController.swift */,
+			);
+			path = GroupMovie;
+			sourceTree = "<group>";
+		};
+		D94F657025106785005EF37A /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				D94E039B250B319F00E7C980 /* HomePageViewController.swift */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		D94F657125106791005EF37A /* MovieDetail */ = {
+			isa = PBXGroup;
+			children = (
+				D98C0857250F0AFF00F0FC67 /* MovieDetailViewController.swift */,
+			);
+			path = MovieDetail;
+			sourceTree = "<group>";
+		};
+		D94F657825106DD5005EF37A /* CastCell */ = {
+			isa = PBXGroup;
+			children = (
+				D94F657425106DCE005EF37A /* CastCollectionViewCell.swift */,
+				D94F657525106DCE005EF37A /* CastCollectionViewCell.xib */,
+			);
+			path = CastCell;
+			sourceTree = "<group>";
+		};
 		D95B4F532509B8FD006E5165 = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +235,7 @@
 			children = (
 				D95B4F792509B9EF006E5165 /* Movie.swift */,
 				D98C085F250F43BC00F0FC67 /* TrailerVideo.swift */,
+				D94F657225106A1E005EF37A /* Cast.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -161,16 +243,15 @@
 		D95B4F742509B964006E5165 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D94E039B250B319F00E7C980 /* HomePageViewController.swift */,
+				D94F657125106791005EF37A /* MovieDetail */,
+				D94F657025106785005EF37A /* HomePage */,
+				D94F656F25106774005EF37A /* GroupMovie */,
+				D94F656B251066CA005EF37A /* MovieCell */,
+				D94F656E25106752005EF37A /* GroupCast */,
+				D94F657825106DD5005EF37A /* CastCell */,
+				D94F656D2510672B005EF37A /* YoutubeVideo */,
+				D94F656C251066E1005EF37A /* SeeAllMovie */,
 				D95B4F6A2509B8FF006E5165 /* LaunchScreen.storyboard */,
-				D95B4F832509C949006E5165 /* MovieCollectionViewCell.swift */,
-				D95B4F842509C949006E5165 /* MovieCollectionViewCell.xib */,
-				D94E0399250B2A5400E7C980 /* GroupMovieChildViewController.swift */,
-				D98C0851250EFFA400F0FC67 /* SeeAllMovieViewController.swift */,
-				D98C0852250EFFA400F0FC67 /* SeeAllMovieViewController.xib */,
-				D98C0857250F0AFF00F0FC67 /* MovieDetailViewController.swift */,
-				D98C0859250F3FBF00F0FC67 /* YoutubeVideoChildViewController.swift */,
-				D98C085A250F3FBF00F0FC67 /* YoutubeVideoChildViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -179,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				D95B4F872509D34D006E5165 /* GroupMovieViewModel.swift */,
+				D94F65692510661B005EF37A /* GroupCastViewModel.swift */,
 				D98C0861250F449B00F0FC67 /* YoutubeVideoViewModel.swift */,
 			);
 			path = ViewModels;
@@ -274,6 +356,8 @@
 				D94E039F250B57BC00E7C980 /* HomePageStoryBoard.storyboard in Resources */,
 				D95B4F692509B8FF006E5165 /* Assets.xcassets in Resources */,
 				D98C085C250F3FBF00F0FC67 /* YoutubeVideoChildViewController.xib in Resources */,
+				D94F656825106469005EF37A /* GroupCastViewController.xib in Resources */,
+				D94F657725106DCE005EF37A /* CastCollectionViewCell.xib in Resources */,
 				D98C0854250EFFA400F0FC67 /* SeeAllMovieViewController.xib in Resources */,
 				D95B4F672509B8FD006E5165 /* Main.storyboard in Resources */,
 				D95B4F862509C949006E5165 /* MovieCollectionViewCell.xib in Resources */,
@@ -334,14 +418,18 @@
 				D94E039A250B2A5400E7C980 /* GroupMovieChildViewController.swift in Sources */,
 				D95B4F602509B8FD006E5165 /* AppDelegate.swift in Sources */,
 				D95B4F622509B8FD006E5165 /* SceneDelegate.swift in Sources */,
+				D94F657625106DCE005EF37A /* CastCollectionViewCell.swift in Sources */,
 				D98C0858250F0AFF00F0FC67 /* MovieDetailViewController.swift in Sources */,
 				D95B4F782509B9BE006E5165 /* MovieAPI.swift in Sources */,
+				D94F656725106469005EF37A /* GroupCastViewController.swift in Sources */,
 				D95B4F882509D34D006E5165 /* GroupMovieViewModel.swift in Sources */,
 				D98C0862250F449B00F0FC67 /* YoutubeVideoViewModel.swift in Sources */,
 				D95B4F7A2509B9EF006E5165 /* Movie.swift in Sources */,
+				D94F657325106A1E005EF37A /* Cast.swift in Sources */,
 				D98C0860250F43BC00F0FC67 /* TrailerVideo.swift in Sources */,
 				D94E039C250B319F00E7C980 /* HomePageViewController.swift in Sources */,
 				D98C085B250F3FBF00F0FC67 /* YoutubeVideoChildViewController.swift in Sources */,
+				D94F656A2510661B005EF37A /* GroupCastViewModel.swift in Sources */,
 				D95B4F852509C949006E5165 /* MovieCollectionViewCell.swift in Sources */,
 				D95B4F822509C20E006E5165 /* MovieService.swift in Sources */,
 				D95B4F7C2509BC45006E5165 /* Utils.swift in Sources */,

@@ -62,4 +62,21 @@ class MovieServie {
             }
         }
     }
+    
+    func getCastOf(movieID: Int, completion: @escaping (Result<CastResult, Error>) -> Void) {
+        movieProvider.request(.getCasts(movieID: movieID)) { (result) in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let response):
+                do {
+                    let castResult = try JSONDecoder().decode(CastResult.self, from: response.data)
+                    completion(.success(castResult))
+                } catch (let error) {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
 }

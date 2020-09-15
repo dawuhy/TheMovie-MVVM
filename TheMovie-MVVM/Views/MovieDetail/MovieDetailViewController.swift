@@ -17,6 +17,7 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var trailerChildView: UIView!
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var overviewTextView: UITextView!
+    @IBOutlet weak var castChildView: UIView!
     
     
     override func viewDidLoad() {
@@ -24,27 +25,15 @@ class MovieDetailViewController: UIViewController {
         
         setUpView()
         setUpTrailerChildView(parentView: trailerChildView)
+        setUpChildView(parentView: castChildView, movieID: movie.id)
     }
     
     func setUpView() {
-        titleMovieLabel.text = movie?.title
-        releaseDateLabel.text = movie?.releaseDate
-        setPosterImageView()
+        self.title = movie.title
+        titleMovieLabel.text = movie.title
+        releaseDateLabel.text = movie.releaseDate
+        posterImageView.loadImageFromPath(path: movie.posterPath)
         overviewTextView.text = movie.overview
-    }
-    
-    func setPosterImageView() {
-        let queue = DispatchQueue(label: "queue")
-        queue.async {
-            do {
-                let data = try Data(contentsOf: getURLImage(path: self.movie.posterPath!))
-                DispatchQueue.main.async {
-                    self.posterImageView.image = UIImage(data: data)
-                }
-            } catch {
-                print("Error load post image")
-            }
-        }
     }
     
     func setUpTrailerChildView(parentView: UIView) {
@@ -59,6 +48,21 @@ class MovieDetailViewController: UIViewController {
             trailerViewController.view.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: 0),
             trailerViewController.view.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 0),
             trailerViewController.view.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: 0)
+        ])
+    }
+    
+    func setUpChildView(parentView: UIView, movieID: Int) {
+        let childViewController = GroupCastViewController(movieID: movieID)
+        addChild(childViewController)
+        parentView.addSubview(childViewController.view)
+        childViewController.didMove(toParent: self)
+        
+        childViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            childViewController.view.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 0),
+            childViewController.view.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: 0),
+            childViewController.view.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: 0),
+            childViewController.view.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: 0)
         ])
     }
     
