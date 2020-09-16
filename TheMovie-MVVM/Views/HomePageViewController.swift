@@ -22,14 +22,10 @@ class HomePageViewController: UIViewController {
         super.viewDidLoad()
         
         setUpView()
-<<<<<<< HEAD
+
         bindViewModel()
         viewModel.getMovie?(1, .popular)
-=======
-        
-        bindViewModel()
-        viewModel.loadDataAction?(1, .popular)
->>>>>>> e8ce5a442a64c6c039c781958cc99f53a9b92e8e
+
     }
     
     private func bindViewModel() {

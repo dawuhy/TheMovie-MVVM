@@ -8,31 +8,15 @@
 
 import Foundation
 
-<<<<<<< HEAD
-=======
-typealias ReceivedDataAction = (MovieResult) -> Void
-typealias LoadDataAction = (Int, MovieType) -> Void
->>>>>>> e8ce5a442a64c6c039c781958cc99f53a9b92e8e
 
 class HomePageViewModel {
  
     private let service = MovieServie()
-<<<<<<< HEAD
     private var receivedDataAction: ((MovieResult) -> Void)?
     var getMovie: ((Int, MovieType) -> Void)?
     
     init() {
         getMovie = { [weak self] (page, movieType) in
-=======
-    
-    // Input
-    private var receivedDataAction: ReceivedDataAction?
-    // Output
-    var loadDataAction: LoadDataAction?
-    
-    init() {
-        loadDataAction = { [weak self] (page, movieType) in
->>>>>>> e8ce5a442a64c6c039c781958cc99f53a9b92e8e
             self?.getMovie(page: page, type: movieType)
         }
     }
