@@ -8,26 +8,24 @@
 
 import Foundation
 
-typealias ReceivedDataAction = (MovieResult) -> Void
-typealias VoidAction = () -> Void
 
 class HomePageViewModel {
  
     private let service = MovieServie()
-    private var receivedDataAction: ReceivedDataAction?
-    var loadDataAction: VoidAction?
+    private var receivedDataAction: ((MovieResult) -> Void)?
+    var getMovie: ((Int, MovieType) -> Void)?
     
     init() {
-        loadDataAction = { [weak self] in
-            self?.getMovie(page: 1, type: .popular)
+        getMovie = { [weak self] (page, movieType) in
+            self?.getMovie(page: page, type: movieType)
         }
     }
     
-    func registerActions(_ reloadData: ReceivedDataAction?) {
+    func registerActions(_ reloadData: ((MovieResult) -> Void)?) {
         self.receivedDataAction = reloadData
     }
     
-    func getMovie(page: Int, type: MovieType) {
+    private func getMovie(page: Int, type: MovieType) {
         service.getMovies(page: page, typeMovie: type) { (result) in
             switch result {
             case .failure(let error):
