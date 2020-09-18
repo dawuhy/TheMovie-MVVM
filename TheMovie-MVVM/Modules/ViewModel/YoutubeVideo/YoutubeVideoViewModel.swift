@@ -10,7 +10,7 @@ import Foundation
 
 class YoutubeVideoViewModel {
     
-    typealias ReceivedDataAction = (TrailerVideoResult) -> Void
+    typealias ReceivedDataAction = (TrailerMovieResult) -> Void
     typealias LoadDataAction = (Int) -> Void
     
     struct Input {

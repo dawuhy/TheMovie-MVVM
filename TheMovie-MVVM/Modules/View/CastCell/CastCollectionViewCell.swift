@@ -29,6 +29,6 @@ class CastCollectionViewCell: UICollectionViewCell {
     public func configure(withCast cast: Cast) {
         castNameLabel.text = cast.name
         characterNameLabel.text = cast.character
-        posterImageView.loadImageFromPath(path: cast.profile_path)
+        posterImageView.loadImageFromPath(path: cast.profilePath)
     }
 }

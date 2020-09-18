@@ -33,9 +33,9 @@ enum MovieType {
 
 func getUrlImage(path: String?) -> URL {
     if path != nil {
-        return URL(string: "https://image.tmdb.org/t/p/w500\(path!)")  ?? URL(string: "https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png")!
+        return URL(string: "https://image.tmdb.org/t/p/w500\(path!)")!
     } else {
-        return URL(string: "https://i0.wp.com/floor-design.jp/wp-content/uploads/2020/05/placeholder.png?fit=1200%2C800&ssl=1")!
+        return URL(string: "https://bigocoder.com/image/default_avatar.jpg")!
     }
 }
 

@@ -9,14 +9,25 @@
 import Foundation
 
 struct Cast: Decodable {
-    let cast_id: Int
+    let castID: Int
     let character: String
-    let credit_id: String
+    let creditID: String
     let gender: Int?
     let id: Int
     let name: String
     let order: Int
-    let profile_path: String?
+    let profilePath: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case castID = "cast_id"
+        case character
+        case creditID = "credit_id"
+        case gender
+        case id
+        case name
+        case order
+        case profilePath = "profile_path"
+    }
 }
 
 struct CastResult: Decodable {

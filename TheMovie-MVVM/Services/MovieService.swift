@@ -46,7 +46,7 @@ class MovieServie {
         }
     }
     
-    func getIDTrailerVideo(movieID: Int, completion: @escaping (Result<TrailerVideoResult, Error>) -> Void) {
+    func getIDTrailerVideo(movieID: Int, completion: @escaping (Result<TrailerMovieResult, Error>) -> Void) {
         movieProvider.request(.getMovieTrailer(movieId: movieID)) { (result) in
             switch result {
             case .failure(let error):
@@ -54,7 +54,7 @@ class MovieServie {
                 return
             case .success(let response):
                 do {
-                    let trailerVideoResult = try JSONDecoder().decode(TrailerVideoResult.self, from: response.data)
+                    let trailerVideoResult = try JSONDecoder().decode(TrailerMovieResult.self, from: response.data)
                     completion(.success(trailerVideoResult))
                 } catch (let error) {
                     completion(.failure(error))

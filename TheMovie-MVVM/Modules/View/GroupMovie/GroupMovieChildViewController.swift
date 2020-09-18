@@ -52,8 +52,8 @@ class GroupMovieChildViewController: UIViewController {
         // Collection view
         movieCollectionView.dataSource = self
         movieCollectionView.delegate = self
-        let nibMovieCell = UINib(nibName: MovieCollectionViewCell.identifier, bundle: nil)
-        movieCollectionView.register(nibMovieCell, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
+        let nibMovieCell = UINib(nibName: MovieCell.identifier, bundle: nil)
+        movieCollectionView.register(nibMovieCell, forCellWithReuseIdentifier: MovieCell.identifier)
     }
     
     @IBAction func didTapSeeAllButton(_ sender: Any) {
@@ -69,7 +69,7 @@ extension GroupMovieChildViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = movieCollectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionViewCell.identifier, for: indexPath) as! MovieCollectionViewCell
+        let cell = movieCollectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.identifier, for: indexPath) as! MovieCell
         
         let movie = arrayMovie[indexPath.row]
         cell.configure(movie: movie)

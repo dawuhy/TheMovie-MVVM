@@ -10,13 +10,14 @@ import Foundation
 //import RealmSwift
 
 struct Movie: Decodable {
-    var id:Int
-    var posterPath:String?
-    var backdropPath:String?
-    var title:String?
-    var releaseDate:String?
-    var rating:Float
-    var overview:String
+    let id:Int
+    let posterPath:String?
+    let backdropPath:String?
+    let title:String
+    let releaseDate:String
+    let rating:Float
+    let voteCount: Int
+    let overview:String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -25,6 +26,7 @@ struct Movie: Decodable {
         case title
         case releaseDate = "release_date"
         case rating = "vote_average"
+        case voteCount = "vote_count"
         case overview
     }
     

@@ -8,13 +8,13 @@
 
 import UIKit
 
-class MovieCollectionViewCell: UICollectionViewCell {
+class MovieCell: UICollectionViewCell {
 
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var heartButton: UIButton!
     
-    static let identifier = "MovieCollectionViewCell"
+    static let identifier = "MovieCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()

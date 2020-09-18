@@ -18,6 +18,9 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var overviewTextView: UITextView!
     @IBOutlet weak var castChildView: UIView!
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var voteCountLabel: UILabel!
+    @IBOutlet weak var yourRatingLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -28,12 +31,31 @@ class MovieDetailViewController: UIViewController {
         setUpChildView(parentView: castChildView, movieID: movie.id)
     }
     
+    deinit {
+        print("MovieDetailViewController deinit")
+    }
+}
+
+extension MovieDetailViewController {
     func setUpView() {
         self.title = movie.title
         titleMovieLabel.text = movie.title
         releaseDateLabel.text = movie.releaseDate
         posterImageView.loadImageFromPath(path: movie.posterPath)
         overviewTextView.text = movie.overview
+        setUpRatingLabel()
+        voteCountLabel.text = String(movie.voteCount)
+        yourRatingLabel.isHidden = true
+    }
+    
+    func setUpRatingLabel() {
+        let string = "\(movie.rating)/10"
+        let attributedString = NSMutableAttributedString(string: string)
+        attributedString.addAttributes([
+            .font: UIFont.boldSystemFont(ofSize: 20),
+            .foregroundColor: UIColor.black
+        ], range: NSRange(location: 0, length: 3))
+        ratingLabel.attributedText = attributedString
     }
     
     func setUpTrailerChildView(parentView: UIView) {
@@ -65,9 +87,15 @@ class MovieDetailViewController: UIViewController {
             childViewController.view.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: 0)
         ])
     }
-    
-    deinit {
-        print("MovieDetailViewController deinit")
-    }
 }
 
+extension MovieDetailViewController {
+    @IBAction func rateMovieTapped(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "RatingStoryboard", bundle: nil)
+        let ratingMovieViewController = storyboard.instantiateViewController(withIdentifier: "RatingMovieViewController") as! RatingMovieViewController
+        
+        ratingMovieViewController.movie = self.movie
+        
+        present(ratingMovieViewController, animated: true)
+    }
+}

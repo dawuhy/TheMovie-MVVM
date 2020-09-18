@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct TrailerVideo: Decodable {
+struct TrailerMovie: Decodable {
     let key: String?
 }
 
-struct TrailerVideoResult: Decodable {
+struct TrailerMovieResult: Decodable {
     let id: Int
-    let results: [TrailerVideo]
+    let results: [TrailerMovie]
 }
