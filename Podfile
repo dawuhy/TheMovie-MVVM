@@ -7,4 +7,6 @@ target 'TheMovie-MVVM' do
 
   # Pods for TheMovie-MVVM
 pod 'Moya', '~> 14.0'
+pod 'RealmSwift'
+pod 'KeychainSwift', '~> 19.0'
 end

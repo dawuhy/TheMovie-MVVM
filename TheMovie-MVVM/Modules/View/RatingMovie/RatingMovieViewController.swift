@@ -32,6 +32,8 @@ class RatingMovieViewController: UIViewController {
     func setUpView() {
         self.posterMovieImageView.loadImageFromPath(path: movie.posterPath)
         self.questionLabel.text = "How would you rate \"\(movie.title)\"?"
+//        view.backgroundColor = UIColor(patternImage: posterMovieImageView.image!)
+//        view.backgroundColor = .black
     }
     
     @IBAction func _1StarButtonTapped(_ sender: Any) {
@@ -165,6 +167,10 @@ class RatingMovieViewController: UIViewController {
     }
     
     @IBAction func sendRatingButtonTapped(_ sender: Any) {
+        self.dismiss(animated: true)
     }
     
+    deinit {
+        print("RatingMovieViewController deinit.")
+    }
 }

@@ -11,6 +11,7 @@ import UIKit
 class MovieDetailViewController: UIViewController {
     
     var movie: Movie!
+    var sessionID: String!
     // Outlets
     @IBOutlet weak var titleMovieLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
@@ -18,9 +19,10 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var overviewTextView: UITextView!
     @IBOutlet weak var castChildView: UIView!
-    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var ratingOfMovieLabel: UILabel!
     @IBOutlet weak var voteCountLabel: UILabel!
     @IBOutlet weak var yourRatingLabel: UILabel!
+    @IBOutlet weak var ratingOfUserLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -44,7 +46,11 @@ extension MovieDetailViewController {
         posterImageView.loadImageFromPath(path: movie.posterPath)
         overviewTextView.text = movie.overview
         setUpRatingLabel()
-        voteCountLabel.text = String(movie.voteCount)
+        if movie.voteCount > 1 {
+            voteCountLabel.text = "\(movie.voteCount) votes"
+        } else {
+            voteCountLabel.text = "\(movie.voteCount) vote"
+        }
         yourRatingLabel.isHidden = true
     }
     
@@ -55,7 +61,7 @@ extension MovieDetailViewController {
             .font: UIFont.boldSystemFont(ofSize: 20),
             .foregroundColor: UIColor.black
         ], range: NSRange(location: 0, length: 3))
-        ratingLabel.attributedText = attributedString
+        ratingOfMovieLabel.attributedText = attributedString
     }
     
     func setUpTrailerChildView(parentView: UIView) {

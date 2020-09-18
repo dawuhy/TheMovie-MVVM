@@ -6,8 +6,8 @@
 //  Copyright © 2020 nhn. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import RealmSwift
 
 let APIKey = "29d7a305994684a8d4d06303fcd07a4d"
 
@@ -54,3 +54,6 @@ extension UIImageView {
         }
     }
 }
+
+var listFavoriteMovie: Results<FavoriteMovieObject>!
+var listFavoriteMovieId:[Any] = []

@@ -1,22 +1,36 @@
 PODS:
   - Alamofire (5.2.2)
+  - KeychainSwift (19.0.0)
   - Moya (14.0.0):
     - Moya/Core (= 14.0.0)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
+  - Realm (5.4.2):
+    - Realm/Headers (= 5.4.2)
+  - Realm/Headers (5.4.2)
+  - RealmSwift (5.4.2):
+    - Realm (= 5.4.2)
 
 DEPENDENCIES:
+  - KeychainSwift (~> 19.0)
   - Moya (~> 14.0)
+  - RealmSwift
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - KeychainSwift
     - Moya
+    - Realm
+    - RealmSwift
 
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  KeychainSwift: a06190cf933ad46b1e0abc3d77d29c06331715c7
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  Realm: ced868eb0254f8d33a21c06981355e5aa33bc005
+  RealmSwift: aedc4363150f3c61f91ae0537ed116d2d080a4dd
 
-PODFILE CHECKSUM: 8ed226d1f54c944d05c6ae3a75966459a3d10c82
+PODFILE CHECKSUM: 241101bdf12d897cba546a73a1eb52eeb14c21c2
 
 COCOAPODS: 1.10.0.beta.1

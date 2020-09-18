@@ -17,6 +17,7 @@ enum MovieAPI {
     case getSimilarMovies(movieId: Int, page:Int)
     case searchPeople(name: String)
     case getCasts(movieID: Int)
+    case getGuestSessionID
 }
 
 extension MovieAPI: TargetType {
@@ -40,6 +41,8 @@ extension MovieAPI: TargetType {
             return "/search/person"
         case .getCasts(movieID: let movieID):
             return "/movie/\(movieID)/credits"
+        case .getGuestSessionID:
+            return "/authentication/guest_session/new"
         }
     }
     
@@ -58,6 +61,8 @@ extension MovieAPI: TargetType {
         case .searchPeople:
             return .get
         case .getCasts:
+            return .get
+        case .getGuestSessionID:
             return .get
         }
     }
@@ -78,6 +83,8 @@ extension MovieAPI: TargetType {
             return .requestParameters(parameters: ["query": "\(name)"], encoding: URLEncoding.default)
         case .getCasts(movieID: _):
             return .requestParameters(parameters: ["": ""], encoding: URLEncoding.default)
+        case .getGuestSessionID:
+            return .requestParameters(parameters: ["": ""], encoding: URLEncoding.default)
         }
     }
     
@@ -86,6 +93,6 @@ extension MovieAPI: TargetType {
     }
     
     var headers: [String : String]? {
-        return ["Content-Typer": "application/json"]
+        return ["Content-Type": "application/json;charset=utf-8"]
     }
 }

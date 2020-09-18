@@ -17,17 +17,17 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p2x-OC-jMr">
-                        <rect key="frame" x="0.0" y="0.0" width="203" height="259"/>
+                        <rect key="frame" x="0.0" y="0.0" width="203" height="267.5"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfM-1h-0ly" userLabel="Cast Name Label">
-                        <rect key="frame" x="10" y="264" width="183" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="10" y="272.5" width="183" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bV-nd-bFX" userLabel="Character Name Label">
-                        <rect key="frame" x="10" y="290" width="183" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <rect key="frame" x="10" y="293.5" width="183" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -40,7 +40,7 @@
                 <constraint firstItem="YfM-1h-0ly" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="dVr-yO-Cq9"/>
                 <constraint firstItem="p2x-OC-jMr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="fBf-sx-g8f"/>
                 <constraint firstAttribute="trailing" secondItem="YfM-1h-0ly" secondAttribute="trailing" constant="10" id="fWD-7a-blS"/>
-                <constraint firstItem="3bV-nd-bFX" firstAttribute="top" secondItem="YfM-1h-0ly" secondAttribute="bottom" constant="5" id="nHv-FF-3r7"/>
+                <constraint firstItem="3bV-nd-bFX" firstAttribute="top" secondItem="YfM-1h-0ly" secondAttribute="bottom" constant="3" id="nHv-FF-3r7"/>
                 <constraint firstAttribute="trailing" secondItem="3bV-nd-bFX" secondAttribute="trailing" constant="10" id="utx-XO-dfJ"/>
                 <constraint firstAttribute="bottom" secondItem="3bV-nd-bFX" secondAttribute="bottom" constant="5" id="wG6-RP-kEI"/>
                 <constraint firstAttribute="trailing" secondItem="p2x-OC-jMr" secondAttribute="trailing" id="wNb-gm-3D3"/>

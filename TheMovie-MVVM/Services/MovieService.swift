@@ -25,6 +25,7 @@ class MovieServie {
             }
             return defaultEndpoint
         })
+//        self.movieProvider = MoyaProvider<MovieAPI>()
     }
     
     func getMovies(page: Int, typeMovie: MovieType, completion: @escaping (Result<MovieResult, Error>) -> Void) {
@@ -74,6 +75,22 @@ class MovieServie {
                     completion(.success(castResult))
                 } catch (let error) {
                     print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    func getGuestSessionID(completion: @escaping (Result<GuestSessionIDResult, Error>) -> Void) {
+        movieProvider.request(.getGuestSessionID) { (result) in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let response):
+                do {
+                    let guestSessionIDResult = try JSONDecoder().decode(GuestSessionIDResult.self, from: response.data)
+                    completion(.success(guestSessionIDResult))
+                } catch (let error) {
                     completion(.failure(error))
                 }
             }

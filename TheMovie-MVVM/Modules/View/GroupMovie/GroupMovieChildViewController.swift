@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class GroupMovieChildViewController: UIViewController {
 
@@ -23,6 +24,7 @@ class GroupMovieChildViewController: UIViewController {
         }
     }
     private var movieType: MovieType!
+    private let keychain = KeychainSwift()
     
     static func initGroupMovieChillView(movieType: MovieType) -> GroupMovieChildViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
