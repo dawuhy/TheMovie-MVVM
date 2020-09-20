@@ -8,17 +8,14 @@
 
 import Foundation
 
-typealias ReceivedDataAction = (MovieResult) -> Void
-typealias LoadDataAction = (Int, MovieType) -> Void
-
 class HomePageViewModel {
     
     struct Input {
-       var receivedDataAction: ReceivedDataAction?
+       var receivedDataAction: ((MovieResult) -> Void)?
     }
     
     struct Output {
-        var loadDataAction: LoadDataAction?
+        var loadDataAction: ((Int, MovieType) -> Void)?
     }
     
     private let service = MovieServie()
@@ -28,7 +25,7 @@ class HomePageViewModel {
     func bindAction(input: HomePageViewModel.Input) -> HomePageViewModel.Output {
         self.input = input
         
-        let loadDataAction: LoadDataAction? = { [weak self] (page, type) in
+        let loadDataAction: ((Int, MovieType) -> Void)? = { [weak self] (page, type) in
             self?.getMovie(page: page, type: type)
         }
         
