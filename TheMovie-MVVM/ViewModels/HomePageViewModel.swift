@@ -12,7 +12,7 @@ import Foundation
 class HomePageViewModel {
  
     private let service = MovieServie()
-    private var receivedDataAction: ((MovieResult) -> Void)?
+    var receivedDataAction: ((MovieResult) -> Void)?
     var getMovie: ((Int, MovieType) -> Void)?
     
     init() {
