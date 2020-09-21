@@ -7,170 +7,106 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class RatingMovieViewController: UIViewController {
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var posterMovieImageView: UIImageView!
     @IBOutlet weak var questionLabel: UILabel!
-    var movie: Movie!
-    @IBOutlet weak var _1StarButton: UIButton!
-    @IBOutlet weak var _2StarButton: UIButton!
-    @IBOutlet weak var _3StarButton: UIButton!
-    @IBOutlet weak var _4StarButton: UIButton!
-    @IBOutlet weak var _5StarButton: UIButton!
-    @IBOutlet weak var _6StarButton: UIButton!
-    @IBOutlet weak var _7StarButton: UIButton!
-    @IBOutlet weak var _8StarButton: UIButton!
-    @IBOutlet weak var _9StarButton: UIButton!
-    @IBOutlet weak var _10StarButton: UIButton!
+    @IBOutlet weak var starCollectionView: UICollectionView!
+    
+    private var currentVotePoint: Int = 0
+    internal var movie: Movie!
+    private let keychain = KeychainSwift()
+    private var sessionID: String!
+    private var output: RatingMovieViewModel.Output?
+    let viewModel = RatingMovieViewModel()
+    private var statusMessage: String? {
+        didSet {
+            dismiss(animated: true, completion: nil)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpView()
+        bindViewModel()
     }
     
     func setUpView() {
-        self.posterMovieImageView.loadImageFromPath(path: movie.posterPath)
+        self.sessionID = keychain.get("session_id")
+        starCollectionView.delegate = self
+        starCollectionView.dataSource = self
+        starCollectionView.backgroundColor = nil
+        
+        var image: UIImage?
+        do {
+            let data = try Data(contentsOf: getUrlImage(path: movie.posterPath))
+            image = UIImage(data: data)
+        } catch {
+            print("Error image")
+        }
+        self.posterMovieImageView.image = image
         self.questionLabel.text = "How would you rate \"\(movie.title)\"?"
-//        view.backgroundColor = UIColor(patternImage: posterMovieImageView.image!)
-//        view.backgroundColor = .black
+        //        view.backgroundColor = UIColor(patternImage: image!)
+        backgroundImageView.image = image
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backgroundImageView.addSubview(blurEffectView)
+        
     }
     
-    @IBAction func _1StarButtonTapped(_ sender: Any) {
-        _1StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _2StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _3StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _4StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _5StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _6StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _7StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _8StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _9StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _10StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-    }
-    
-    @IBAction func _2StarButtonTapped(_ sender: Any) {
-        _1StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _2StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _3StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _4StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _5StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _6StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _7StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _8StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _9StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _10StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-    }
-    
-    @IBAction func _3StarButtonTapped(_ sender: Any) {
-        _1StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _2StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _3StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _4StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _5StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _6StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _7StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _8StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _9StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _10StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-    }
-    
-    @IBAction func _4StarButtonTapped(_ sender: Any) {
-        _1StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _2StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _3StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _4StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _5StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _6StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _7StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _8StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _9StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _10StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-    }
-    
-    @IBAction func _5StarButtonTapped(_ sender: Any) {
-        _1StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _2StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _3StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _4StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _5StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _6StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _7StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _8StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _9StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _10StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-    }
-    
-    @IBAction func _6StarButtonTapped(_ sender: Any) {
-        _1StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _2StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _3StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _4StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _5StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _6StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _7StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _8StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _9StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _10StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-    }
-    
-    @IBAction func _7StarButtonTapped(_ sender: Any) {
-        _1StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _2StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _3StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _4StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _5StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _6StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _7StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _8StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _9StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _10StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-    }
-    
-    @IBAction func _8StarButtonTapped(_ sender: Any) {
-        _1StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _2StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _3StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _4StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _5StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _6StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _7StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _8StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _9StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-        _10StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-    }
-    
-    @IBAction func _9StarButtonTapped(_ sender: Any) {
-        _1StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _2StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _3StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _4StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _5StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _6StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _7StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _8StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _9StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _10StarButton.setImage(UIImage(systemName: "star"), for: .normal)
-    }
-    
-    @IBAction func _10StarButtonTapped(_ sender: Any) {
-        _1StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _2StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _3StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _4StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _5StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _6StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _7StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _8StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _9StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        _10StarButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+    func bindViewModel() {
+        let input = RatingMovieViewModel.Input { [weak self] (ratingMovieResponse) in
+            self?.statusMessage = ratingMovieResponse.status_message
+        }
+        self.output = viewModel.bindAction(input: input)
     }
     
     @IBAction func sendRatingButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true)
+        if self.currentVotePoint > 0 {
+            output?.ratingMovie?(keychain.get("session_id")!, movie.id, Double(self.currentVotePoint))
+        }
     }
     
     deinit {
         print("RatingMovieViewController deinit.")
+    }
+}
+
+extension RatingMovieViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.currentVotePoint = indexPath.row + 1
+        starCollectionView.reloadData()
+    }
+}
+
+extension RatingMovieViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = starCollectionView.dequeueReusableCell(withReuseIdentifier: "StarCell", for: indexPath) as! StarCell
+        
+        cell.configure(indexPathDotRow: indexPath.row, currentVotePoint: self.currentVotePoint)
+        
+        return cell
+    }
+}
+
+extension RatingMovieViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = starCollectionView.bounds.width / 10 - 5
+        let height = width
+        
+        return .init(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
     }
 }

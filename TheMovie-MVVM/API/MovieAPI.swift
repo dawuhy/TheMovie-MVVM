@@ -18,6 +18,7 @@ enum MovieAPI {
     case searchPeople(name: String)
     case getCasts(movieID: Int)
     case getGuestSessionID
+    case ratingMovie(guestSessionID: String, movieID: Int, point: Double)
 }
 
 extension MovieAPI: TargetType {
@@ -43,6 +44,8 @@ extension MovieAPI: TargetType {
             return "/movie/\(movieID)/credits"
         case .getGuestSessionID:
             return "/authentication/guest_session/new"
+        case .ratingMovie(guestSessionID: _, movieID: let movieID, point: _):
+            return "/movie/\(movieID)/rating"
         }
     }
     
@@ -64,6 +67,8 @@ extension MovieAPI: TargetType {
             return .get
         case .getGuestSessionID:
             return .get
+        case .ratingMovie:
+            return .post
         }
     }
     
@@ -85,6 +90,8 @@ extension MovieAPI: TargetType {
             return .requestParameters(parameters: ["": ""], encoding: URLEncoding.default)
         case .getGuestSessionID:
             return .requestParameters(parameters: ["": ""], encoding: URLEncoding.default)
+        case .ratingMovie(guestSessionID: let guestSessionID, movieID: _, point: let point):
+            return .requestCompositeParameters(bodyParameters: ["value": "\(point)"], bodyEncoding: URLEncoding.default, urlParameters: ["guest_session_id": "\(guestSessionID)"])
         }
     }
     

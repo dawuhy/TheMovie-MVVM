@@ -24,7 +24,7 @@ class HomePageViewController: UIViewController {
         super.viewDidLoad()
         
         bindViewModel()
-        setUpGuestSessionID()
+//        setUpGuestSessionID()
         
         setUpChildView(parentView: topRatedMovieChildView, movieType: .top_rated)
         setUpChildView(parentView: popularMovieChildView, movieType: .popular)
@@ -50,6 +50,7 @@ class HomePageViewController: UIViewController {
         let input = HomePageViewModel.Input { guestSessionIDResult in
             self.sessionID = guestSessionIDResult.guestSessionID
             self.keychain.set(self.sessionID, forKey: "session_id")
+            print("CURRENT SESSION ID: \(self.sessionID!)")
         }
         
         self.output = viewModel.bindAction(input: input)
@@ -61,5 +62,6 @@ class HomePageViewController: UIViewController {
         } else {
             self.sessionID = keychain.get("session_id")
         }
+        print("CURRENT SESSION ID: \(self.sessionID!)")
     }
 }

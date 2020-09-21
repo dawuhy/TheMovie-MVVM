@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import KeychainSwift
 
 class HomePageViewModel {
 
@@ -20,6 +21,7 @@ class HomePageViewModel {
     
     let service = MovieServie()
     var input:Input?
+    private let keychain = KeychainSwift()
     
     func bindAction(input: HomePageViewModel.Input) -> HomePageViewModel.Output {
         self.input = input

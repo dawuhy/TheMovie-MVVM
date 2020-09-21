@@ -15,7 +15,7 @@ class GroupMovieViewModel {
     }
     
     struct Output {
-        var getMovie: ((Int, MovieType) -> Void)?
+        var getMovieAction: ((Int, MovieType) -> Void)?
     }
     
     private let service = MovieServie()
@@ -28,7 +28,7 @@ class GroupMovieViewModel {
             self?.getMovie(page: page, type: type)
         }
         
-       return Output(getMovie: getMovie)
+       return Output(getMovieAction: getMovie)
     }
 
     private func getMovie(page: Int, type: MovieType) {

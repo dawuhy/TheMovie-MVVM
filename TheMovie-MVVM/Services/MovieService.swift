@@ -96,4 +96,21 @@ class MovieServie {
             }
         }
     }
+    
+    func ratingMovie(guestSessionID: String, movieID: Int, point: Double, completion: @escaping (Result<RatingMovieResponse, Error>) -> Void) {
+        movieProvider.request(.ratingMovie(guestSessionID: guestSessionID, movieID: movieID, point: point)) { (result) in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let response):
+                do {
+                    print(response.request?.url!)
+                    let ratingMovieResult = try JSONDecoder().decode(RatingMovieResponse.self, from: response.data)
+                    completion(.success(ratingMovieResult))
+                } catch (let error) {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
 }

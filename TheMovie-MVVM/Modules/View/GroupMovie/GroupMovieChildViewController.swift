@@ -38,7 +38,7 @@ class GroupMovieChildViewController: UIViewController {
         
         setUpView()
         bindViewModel()
-        output?.getMovie?(1, movieType)
+        output?.getMovieAction?(1, movieType)
         
     }
     
