@@ -15,7 +15,6 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var popularMovieChildView: UIView!
     @IBOutlet weak var nowPlayingMovieChildView: UIView!
     
-    private var sessionID: String!
     private let viewModel = HomePageViewModel()
     private var output: HomePageViewModel.Output?
     private let keychain = KeychainSwift()
@@ -24,7 +23,6 @@ class HomePageViewController: UIViewController {
         super.viewDidLoad()
         
         bindViewModel()
-//        setUpGuestSessionID()
         
         setUpChildView(parentView: topRatedMovieChildView, movieType: .top_rated)
         setUpChildView(parentView: popularMovieChildView, movieType: .popular)
@@ -48,20 +46,9 @@ class HomePageViewController: UIViewController {
     
     private func bindViewModel() {
         let input = HomePageViewModel.Input { guestSessionIDResult in
-            self.sessionID = guestSessionIDResult.guestSessionID
-            self.keychain.set(self.sessionID, forKey: "session_id")
-            print("CURRENT SESSION ID: \(self.sessionID!)")
+            self.keychain.set(guestSessionIDResult.guestSessionID, forKey: "session_id")
         }
         
         self.output = viewModel.bindAction(input: input)
-    }
-    
-    private func setUpGuestSessionID() {
-        if keychain.get("session_id") == nil {
-            output?.getGuestSessionID?()
-        } else {
-            self.sessionID = keychain.get("session_id")
-        }
-        print("CURRENT SESSION ID: \(self.sessionID!)")
     }
 }

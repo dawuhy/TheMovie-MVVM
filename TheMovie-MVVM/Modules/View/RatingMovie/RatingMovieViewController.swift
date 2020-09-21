@@ -49,7 +49,6 @@ class RatingMovieViewController: UIViewController {
         }
         self.posterMovieImageView.image = image
         self.questionLabel.text = "How would you rate \"\(movie.title)\"?"
-        //        view.backgroundColor = UIColor(patternImage: image!)
         backgroundImageView.image = image
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -62,6 +61,7 @@ class RatingMovieViewController: UIViewController {
     func bindViewModel() {
         let input = RatingMovieViewModel.Input { [weak self] (ratingMovieResponse) in
             self?.statusMessage = ratingMovieResponse.status_message
+            print(self?.statusMessage)
         }
         self.output = viewModel.bindAction(input: input)
     }

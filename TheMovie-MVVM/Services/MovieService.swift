@@ -104,7 +104,6 @@ class MovieServie {
                 completion(.failure(error))
             case .success(let response):
                 do {
-                    print(response.request?.url!)
                     let ratingMovieResult = try JSONDecoder().decode(RatingMovieResponse.self, from: response.data)
                     completion(.success(ratingMovieResult))
                 } catch (let error) {

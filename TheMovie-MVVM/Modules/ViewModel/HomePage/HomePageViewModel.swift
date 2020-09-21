@@ -10,27 +10,34 @@ import Foundation
 import KeychainSwift
 
 class HomePageViewModel {
-
+    
     struct Input {
         var receiveDataAction: ((GuestSessionIDResult) -> Void)?
     }
     
     struct Output {
-        var getGuestSessionID: (() -> Void)?
+        var getGuestSessionIDAction: (() -> Void)?
+        var setUpGuestSessionIDAction: (() -> Void)?
     }
     
     let service = MovieServie()
     var input:Input?
     private let keychain = KeychainSwift()
+    private var output: HomePageViewModel.Output?
     
     func bindAction(input: HomePageViewModel.Input) -> HomePageViewModel.Output {
         self.input = input
         
-        let getGuestSessionID: (() -> Void)? = { [weak self] in
+        let getGuestSessionIDAction: (() -> Void)? = { [weak self] in
             self?.getGuestSessionID()
         }
         
-        return Output(getGuestSessionID: getGuestSessionID)
+        let setUpGuestSessionIDAction: (() -> Void)? = { [weak self] in
+            guard let self = self else {return}
+            self.setUpGuestSessionID()
+        }
+        
+        return Output(getGuestSessionIDAction: getGuestSessionIDAction, setUpGuestSessionIDAction: setUpGuestSessionIDAction)
     }
     
     private func getGuestSessionID() {
@@ -42,5 +49,12 @@ class HomePageViewModel {
                 self?.input?.receiveDataAction?(guestSessionIDResult)
             }
         }
+    }
+    
+    private func setUpGuestSessionID() {
+        if keychain.get("session_id") == nil {
+            output?.getGuestSessionIDAction?()
+        }
+        print("CURRENT SESSION ID: \(String(describing: keychain.get("session_id")))")
     }
 }
