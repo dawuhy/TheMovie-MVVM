@@ -12,17 +12,17 @@ import Foundation
 class HomePageViewModel {
  
     private let service = MovieServie()
-    var receivedDataAction: ((MovieResult) -> Void)?
-    var getMovie: ((Int, MovieType) -> Void)?
+    var callBackAction: ((MovieResult) -> Void)?
+    var getMovieAction: ((Int, MovieType) -> Void)?
     
     init() {
-        getMovie = { [weak self] (page, movieType) in
+        getMovieAction = { [weak self] (page, movieType) in
             self?.getMovie(page: page, type: movieType)
         }
     }
     
     func registerActions(_ reloadData: ((MovieResult) -> Void)?) {
-        self.receivedDataAction = reloadData
+        self.callBackAction = reloadData
     }
     
     private func getMovie(page: Int, type: MovieType) {
@@ -31,7 +31,7 @@ class HomePageViewModel {
             case .failure(let error):
                 print(error.localizedDescription)
             case .success(let movieResult):
-                self.receivedDataAction?(movieResult)
+                self.callBackAction?(movieResult)
             }
         }
     }
