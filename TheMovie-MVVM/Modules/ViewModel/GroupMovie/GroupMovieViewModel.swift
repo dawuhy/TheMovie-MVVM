@@ -10,36 +10,31 @@ import Foundation
 
 class GroupMovieViewModel {
     
-    struct Input {
-        var receivedDataAction: ((MovieResult) -> Void)?
-    }
-    
-    struct Output {
-        var getMovieAction: ((Int, MovieType) -> Void)?
-    }
-    
     private let service = MovieServie()
-    var input: Input?
+    var getMovieAction: ((_ page: Int, _ movieType: MovieType) -> Void)!
+    var callBackMovieAction: ((MovieResult) -> Void)!
     
-    func bindAction(input: GroupMovieViewModel.Input) -> GroupMovieViewModel.Output {
-        self.input = input
-        
-        let getMovie: ((Int, MovieType) -> Void)? = { [weak self] (page, type) in
-            self?.getMovie(page: page, type: type)
+    init() {
+        getMovieAction = { [weak self] (page, movieType) in
+            guard let self = self else {return}
+            self.getMovie(page: page, movieType: movieType)
         }
-        
-       return Output(getMovieAction: getMovie)
     }
 
-    private func getMovie(page: Int, type: MovieType) {
-        service.getMovies(page: page, typeMovie: type) { [weak self] (result) in
+    private func getMovie(page: Int, movieType: MovieType) {
+        service.getMovies(page: page, typeMovie: movieType) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
             case .success(let movieResult):
-                self?.input?.receivedDataAction?(movieResult)
+//                self?.input?.callBackMovieAction?(movieResult)
+                self?.callBackMovieAction(movieResult)
             }
         }
+    }
+    
+    func completionHandler(_ callBackMovieAction: @escaping (MovieResult) -> Void) {
+        self.callBackMovieAction = callBackMovieAction
     }
     
     deinit {

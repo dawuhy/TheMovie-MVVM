@@ -14,16 +14,17 @@ class RatingMovieViewController: UIViewController {
     @IBOutlet weak var posterMovieImageView: UIImageView!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var starCollectionView: UICollectionView!
+    @IBOutlet weak var removeRatingButtonOutlet: UIButton!
     
-    private var currentVotePoint: Int = 0
+    public var currentVotePoint: Int!
     internal var movie: Movie!
     private let keychain = KeychainSwift()
-    private var sessionID: String!
-    private var output: RatingMovieViewModel.Output?
     let viewModel = RatingMovieViewModel()
     private var statusMessage: String? {
         didSet {
-            dismiss(animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
     
@@ -35,7 +36,9 @@ class RatingMovieViewController: UIViewController {
     }
     
     func setUpView() {
-        self.sessionID = keychain.get("session_id")
+        if currentVotePoint == 0 {
+            removeRatingButtonOutlet.isHidden = true
+        }
         starCollectionView.delegate = self
         starCollectionView.dataSource = self
         starCollectionView.backgroundColor = nil
@@ -55,22 +58,33 @@ class RatingMovieViewController: UIViewController {
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         backgroundImageView.addSubview(blurEffectView)
-        
     }
     
     func bindViewModel() {
-        let input = RatingMovieViewModel.Input { [weak self] (ratingMovieResponse) in
-            self?.statusMessage = ratingMovieResponse.status_message
-            print(self?.statusMessage)
+        viewModel.completionHandler { [weak self] (ratingMovieResponse) in
+            guard let self = self else {return}
+            self.statusMessage = ratingMovieResponse.status_message
+            print(self.statusMessage!)
         }
-        self.output = viewModel.bindAction(input: input)
+        
+        viewModel.deleteMovieRatingCompletionHandler { [weak self] (ratingMovieStatus) in
+            guard let self = self else {return}
+            self.statusMessage = ratingMovieStatus.status_message
+            print(self.statusMessage!)
+        }
     }
     
     @IBAction func sendRatingButtonTapped(_ sender: Any) {
         if self.currentVotePoint > 0 {
-            output?.ratingMovie?(keychain.get("session_id")!, movie.id, Double(self.currentVotePoint))
+            viewModel.ratingMovieAction(keychain.get("session_id")!, movie.id, Double(self.currentVotePoint))
         }
     }
+    
+    @IBAction func removeRatingButtonTapped(_ sender: Any) {
+        viewModel.deleteMovieRatingAction(keychain.get("session_id")!, movie.id)
+        currentVotePoint = 0
+    }
+    
     
     deinit {
         print("RatingMovieViewController deinit.")

@@ -16,12 +16,13 @@ class HomePageViewController: UIViewController {
     @IBOutlet weak var nowPlayingMovieChildView: UIView!
     
     private let viewModel = HomePageViewModel()
-    private var output: HomePageViewModel.Output?
+//    private var output: HomePageViewModel.Output?
     private let keychain = KeychainSwift()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.setUpGuestSessionIDAction()
         bindViewModel()
         
         setUpChildView(parentView: topRatedMovieChildView, movieType: .top_rated)
@@ -45,10 +46,15 @@ class HomePageViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        let input = HomePageViewModel.Input { guestSessionIDResult in
+//        let input = HomePageViewModel.Input { guestSessionIDResult in
+//            self.keychain.set(guestSessionIDResult.guestSessionID, forKey: "session_id")
+//        }
+//
+//        self.output = viewModel.bindAction(input: input)
+        viewModel.sessionIDCompletionHandler { [weak self] (guestSessionIDResult) in
+            guard let self = self else {return}
             self.keychain.set(guestSessionIDResult.guestSessionID, forKey: "session_id")
+            print(self.keychain.get("session_id")!)
         }
-        
-        self.output = viewModel.bindAction(input: input)
     }
 }

@@ -7,11 +7,33 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class MovieDetailViewController: UIViewController {
     
     var movie: Movie!
     var sessionID: String!
+    private var viewModel = MovieDetailViewModel()
+    private var currentUserRating = 0
+    var ratedMovieList: [Movie] = [] {
+        didSet {
+            if ratedMovieList.filter({$0.id == movie.id}).count > 0  {
+                currentUserRating = ratedMovieList.filter {$0.id == movie.id}[0].ratingOfUser!
+                ratingOfUserLabel.text = "\(currentUserRating)"
+                ratingOfUserLabel.font = .boldSystemFont(ofSize: 20)
+                yourRatingLabel.isHidden = false
+                starImageView.image = UIImage(systemName: "star.fill")
+            } else {
+                yourRatingLabel.isHidden = true
+                self.currentUserRating = 0
+                starImageView.image = UIImage(systemName: "star")
+                ratingOfUserLabel.text = "Rate this"
+                ratingOfUserLabel.font = .boldSystemFont(ofSize: 14)
+            }
+        }
+    }
+    let keychain = KeychainSwift()
+    
     // Outlets
     @IBOutlet weak var titleMovieLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
@@ -21,16 +43,37 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var castChildView: UIView!
     @IBOutlet weak var ratingOfMovieLabel: UILabel!
     @IBOutlet weak var voteCountLabel: UILabel!
+    @IBOutlet weak var starImageView: UIImageView!
     @IBOutlet weak var yourRatingLabel: UILabel!
     @IBOutlet weak var ratingOfUserLabel: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        self.bindViewModel()
         
-        setUpView()
-        setUpTrailerChildView(parentView: trailerChildView)
-        setUpChildView(parentView: castChildView, movieID: movie.id)
+        self.setUpView()
+        self.setUpTrailerChildView(parentView: self.trailerChildView)
+        self.setUpChildView(parentView: self.castChildView, movieID: self.movie.id)
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.showSpinner(onView: self.view)
+        self.viewModel.getRatedMoviesAction(self.keychain.get("session_id")!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.removeSpinner()
+        }
+    }
+    
+    func bindViewModel() {
+        viewModel.getRatedMoviesCompletionHandler { [weak self] (movieResult) in
+            guard let self = self else {return}
+            self.ratedMovieList = movieResult.arrayMovie
+            print(self.ratedMovieList.count)
+        }
     }
     
     deinit {
@@ -51,11 +94,10 @@ extension MovieDetailViewController {
         } else {
             voteCountLabel.text = "\(movie.voteCount) vote"
         }
-        yourRatingLabel.isHidden = true
     }
     
     func setUpRatingLabel() {
-        let string = "\(movie.rating)/10"
+        let string = "\(movie.voteAverage)/10"
         let attributedString = NSMutableAttributedString(string: string)
         attributedString.addAttributes([
             .font: UIFont.boldSystemFont(ofSize: 20),
@@ -101,7 +143,9 @@ extension MovieDetailViewController {
         let ratingMovieViewController = storyboard.instantiateViewController(withIdentifier: "RatingMovieViewController") as! RatingMovieViewController
         
         ratingMovieViewController.movie = self.movie
+        ratingMovieViewController.currentVotePoint = currentUserRating
         
-        present(ratingMovieViewController, animated: true)
+//        present(ratingMovieViewController, animated: true)
+        navigationController?.pushViewController(ratingMovieViewController, animated: true)
     }
 }

@@ -18,7 +18,7 @@ class SeeAllMovieViewController: UIViewController {
         }
     }
     var viewModel = GroupMovieViewModel()
-    private var output: GroupMovieViewModel.Output?
+//    private var output: GroupMovieViewModel.Output?
     var movieType: MovieType!
     private var page: Int = 1
 
@@ -27,7 +27,8 @@ class SeeAllMovieViewController: UIViewController {
 
         setUpView()
         bindViewModel()
-        output?.getMovieAction?(page, movieType)
+//        output?.getMovieAction?(page, movieType)
+        viewModel.getMovieAction(page, movieType)
     }
 
     func setUpView() {
@@ -40,10 +41,14 @@ class SeeAllMovieViewController: UIViewController {
     }
 
     func bindViewModel() {
-        let input = GroupMovieViewModel.Input { [weak self] (movieResult) in
-            self?.arrayMovie.append(contentsOf: movieResult.arrayMovie)
+//        let input = GroupMovieViewModel.Input { [weak self] (movieResult) in
+//            self?.arrayMovie.append(contentsOf: movieResult.arrayMovie)
+//        }
+//        self.output = viewModel.bindAction(input: input)
+        viewModel.callBackMovieAction = { [weak self] (movieResult) in
+            guard let self = self else {return}
+            self.arrayMovie.append(contentsOf: movieResult.arrayMovie)
         }
-        self.output = viewModel.bindAction(input: input)
     }
 }
 
@@ -67,7 +72,8 @@ extension SeeAllMovieViewController: UICollectionViewDelegate {
         if movieCollectionView.contentOffset.y >= (movieCollectionView.contentSize.height - movieCollectionView.frame.size.height) {
             // MARK: Load more movie
             page += 1
-            output?.getMovieAction?(page, movieType)
+//            output?.getMovieAction?(page, movieType)
+            viewModel.getMovieAction(page, movieType)
         }
     }
     

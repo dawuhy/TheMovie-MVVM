@@ -11,34 +11,55 @@ import KeychainSwift
 
 class HomePageViewModel {
     
-    struct Input {
-        var receiveDataAction: ((GuestSessionIDResult) -> Void)?
-    }
+    //    struct Input {
+    //        var completionHandler: ((GuestSessionIDResult) -> Void)?
+    //    }
+    //
+    //    struct Output {
+    //        var getGuestSessionIDAction: (() -> Void)?
+    //        var setUpGuestSessionIDAction: (() -> Void)?
+    //    }
     
-    struct Output {
-        var getGuestSessionIDAction: (() -> Void)?
-        var setUpGuestSessionIDAction: (() -> Void)?
-    }
+    //    private var output: HomePageViewModel.Output?
     
-    let service = MovieServie()
-    var input:Input?
+    //    func bindAction(input: HomePageViewModel.Input) -> HomePageViewModel.Output {
+    //        self.input = input
+    //
+    //        let getGuestSessionIDAction: (() -> Void)? = { [weak self] in
+    //            self?.getGuestSessionID()
+    //        }
+    //        let setUpGuestSessionIDAction: (() -> Void)? = { [weak self] in
+    //            guard let self = self else {return}
+    //            self.setUpGuestSessionID()
+    //        }
+    //        return Output(getGuestSessionIDAction: getGuestSessionIDAction, setUpGuestSessionIDAction: setUpGuestSessionIDAction)
+    //    }
+    //    var input:Input?
+    
+    private let service = MovieServie()
     private let keychain = KeychainSwift()
-    private var output: HomePageViewModel.Output?
+    // Input
+    private var callBackSessionIDAction: ((GuestSessionIDResult) -> Void)?
+    // Output
+    var getGuestSessionIDAction: (() -> Void)!
+    var setUpGuestSessionIDAction: (() -> Void)!
+
     
-    func bindAction(input: HomePageViewModel.Input) -> HomePageViewModel.Output {
-        self.input = input
-        
-        let getGuestSessionIDAction: (() -> Void)? = { [weak self] in
+    init() {
+        getGuestSessionIDAction = { [weak self] in
             self?.getGuestSessionID()
         }
         
-        let setUpGuestSessionIDAction: (() -> Void)? = { [weak self] in
-            guard let self = self else {return}
-            self.setUpGuestSessionID()
+        setUpGuestSessionIDAction = { [weak self] in
+            self?.setUpGuestSessionID()
         }
-        
-        return Output(getGuestSessionIDAction: getGuestSessionIDAction, setUpGuestSessionIDAction: setUpGuestSessionIDAction)
     }
+    
+    public func sessionIDCompletionHandler(_ callBackSessionIDAction: @escaping (GuestSessionIDResult) -> Void) {
+        self.callBackSessionIDAction = callBackSessionIDAction
+    }
+    
+
     
     private func getGuestSessionID() {
         service.getGuestSessionID { [weak self] (result) in
@@ -46,14 +67,16 @@ class HomePageViewModel {
             case .failure(let error):
                 print(error.localizedDescription)
             case .success(let guestSessionIDResult):
-                self?.input?.receiveDataAction?(guestSessionIDResult)
+                //                self?.input?.completionHandler?(guestSessionIDResult)
+                self?.callBackSessionIDAction?(guestSessionIDResult)
             }
         }
     }
     
     private func setUpGuestSessionID() {
         if keychain.get("session_id") == nil {
-            output?.getGuestSessionIDAction?()
+            //            output?.getGuestSessionIDAction?()
+            self.getGuestSessionIDAction()
         }
         print("CURRENT SESSION ID: \(String(describing: keychain.get("session_id")))")
     }

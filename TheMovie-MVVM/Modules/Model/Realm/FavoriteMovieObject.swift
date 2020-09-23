@@ -23,7 +23,7 @@ class FavoriteMovieObject: Object {
         backdropPath = movie.backdropPath
         overview = movie.overview
         posterPath = movie.posterPath ?? "https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png"
-        rating = movie.rating
+        rating = movie.voteAverage
         releaseDate = movie.releaseDate
         title = movie.title
         voteCount = movie.voteCount

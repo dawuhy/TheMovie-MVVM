@@ -35,9 +35,10 @@ class YoutubeVideoChildViewController: UIViewController {
     
     func bindViewModel() {
         let input = YoutubeVideoViewModel.Input { [weak self] movieTrailerResult in
+            guard let self = self else {return}
             if movieTrailerResult.results.count > 0 {
-                self?.keyVideo = movieTrailerResult.results[0].key!
-                self?.loadVideo()
+                self.keyVideo = movieTrailerResult.results[0].key!
+                self.loadVideo()
             }
             else {
                 return

@@ -19,6 +19,8 @@ enum MovieAPI {
     case getCasts(movieID: Int)
     case getGuestSessionID
     case ratingMovie(guestSessionID: String, movieID: Int, point: Double)
+    case getRatedMovies(guestSessionID: String)
+    case deleteMovieRating(guestSessionID: String, movieID: Int)
 }
 
 extension MovieAPI: TargetType {
@@ -46,6 +48,10 @@ extension MovieAPI: TargetType {
             return "/authentication/guest_session/new"
         case .ratingMovie(guestSessionID: _, movieID: let movieID, point: _):
             return "/movie/\(movieID)/rating"
+        case .getRatedMovies(guestSessionID: let guestSessionID):
+            return "/guest_session/\(guestSessionID)/rated/movies"
+        case .deleteMovieRating(guestSessionID: _, movieID: let movieID):
+            return "/movie/\(movieID)/rating"
         }
     }
     
@@ -69,6 +75,10 @@ extension MovieAPI: TargetType {
             return .get
         case .ratingMovie:
             return .post
+        case .getRatedMovies(guestSessionID: _):
+            return .get
+        case .deleteMovieRating:
+            return .delete
         }
     }
     
@@ -92,6 +102,10 @@ extension MovieAPI: TargetType {
             return .requestParameters(parameters: ["": ""], encoding: URLEncoding.default)
         case .ratingMovie(guestSessionID: let guestSessionID, movieID: _, point: let point):
             return .requestCompositeParameters(bodyParameters: ["value": "\(point)"], bodyEncoding: JSONEncoding.default, urlParameters: ["api_key": "29d7a305994684a8d4d06303fcd07a4d", "guest_session_id": "\(guestSessionID)"])
+        case .getRatedMovies(guestSessionID: _):
+            return .requestParameters(parameters: ["sort_by": "created_at.desc"], encoding: URLEncoding.default)
+        case .deleteMovieRating(guestSessionID: let guestSessionID, movieID: _):
+            return .requestParameters(parameters: ["guest_session_id": "\(guestSessionID)"], encoding: URLEncoding.default)
         }
     }
     

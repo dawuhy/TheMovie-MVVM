@@ -9,26 +9,31 @@
 import Foundation
 
 class RatingMovieViewModel {
-    struct Input {
-        var receiveDataAction: ((RatingMovieResponse) -> Void)?
-    }
-    
-    struct Output {
-        var ratingMovie: ((String, Int, Double) -> Void)?
-    }
-    
     private let service = MovieServie()
-    var input: Input?
     
-    func bindAction(input: RatingMovieViewModel.Input) -> RatingMovieViewModel.Output {
-        self.input = input
-        
-        let ratingMovie: ((String, Int, Double) -> Void)? = { [weak self] (guestSessionID, movieID, point) in
-            guard let self = self else {return}
-            self.ratingMovie(guestSessionID: guestSessionID, movieID: movieID, point: point)
+    // Input
+    private var ratingMovieCallBackAction: ((RatingMovieStatus) -> Void)?
+    private var deleteMovieRatingCallBackAction: ((RatingMovieStatus) -> Void)?
+    // Output
+    var ratingMovieAction: ((_ guestSessionID: String, _ movieID: Int, _ point: Double) -> Void)!
+    var deleteMovieRatingAction: ((_ guestSessionID: String, _ movieID: Int) -> Void)!
+    
+    init() {
+        ratingMovieAction = { [weak self] (guestSessionID, movieID, point) in
+            self?.ratingMovie(guestSessionID: guestSessionID, movieID: movieID, point: point)
         }
         
-       return Output(ratingMovie: ratingMovie)
+        deleteMovieRatingAction = { [weak self] (guestSessionID, movieID) in
+            self?.deleteMovieRating(guestSessionID: guestSessionID, movieID: movieID)
+        }
+    }
+    
+    public func completionHandler(_ callBackAction: @escaping (RatingMovieStatus) -> Void) {
+        self.ratingMovieCallBackAction = callBackAction
+    }
+    
+    public func deleteMovieRatingCompletionHandler(_ callBackAction: @escaping (RatingMovieStatus) -> Void) {
+        self.deleteMovieRatingCallBackAction = callBackAction
     }
     
     private func ratingMovie(guestSessionID: String, movieID: Int, point: Double) {
@@ -37,8 +42,19 @@ class RatingMovieViewModel {
             switch result {
             case .failure(let error):
                 print(error)
-            case .success(let ratingMovieResponse):
-                self.input?.receiveDataAction?(ratingMovieResponse)
+            case .success(let ratingStatusResponse):
+                self.ratingMovieCallBackAction?(ratingStatusResponse)
+            }
+        }
+    }
+    
+    private func deleteMovieRating(guestSessionID: String, movieID: Int) {
+        service.deleteMovieRating(guestSessionID: guestSessionID, movieID: movieID) { (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let ratingStatusResponse):
+                self.deleteMovieRatingCallBackAction?(ratingStatusResponse)
             }
         }
     }

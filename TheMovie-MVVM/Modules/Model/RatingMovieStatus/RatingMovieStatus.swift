@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RatingMovieResponse: Decodable {
+struct RatingMovieStatus: Decodable {
     let success: Bool
     let status_code: Int
     let status_message: String

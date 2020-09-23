@@ -16,7 +16,6 @@ class GroupMovieChildViewController: UIViewController {
     @IBOutlet weak var movieCollectionView: UICollectionView!
     // ViewModels
     private let viewModel = GroupMovieViewModel()
-    private var output: GroupMovieViewModel.Output?
     // Data
     private var arrayMovie = [Movie]() {
         didSet {
@@ -38,15 +37,15 @@ class GroupMovieChildViewController: UIViewController {
         
         setUpView()
         bindViewModel()
-        output?.getMovieAction?(1, movieType)
-        
+//        output?.getMovieAction?(1, movieType)
+        viewModel.getMovieAction(1, movieType)
     }
     
     private func bindViewModel() {
-        let input = GroupMovieViewModel.Input { [weak self] (movieResult) in
-            self?.arrayMovie.append(contentsOf: movieResult.arrayMovie)
+        viewModel.completionHandler { [weak self] (movieResult) in
+            guard let self = self else {return}
+            self.arrayMovie.append(contentsOf: movieResult.arrayMovie)
         }
-        self.output = viewModel.bindAction(input: input)
     }
 
     func setUpView() {

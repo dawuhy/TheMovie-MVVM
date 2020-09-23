@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="lce-fR-Qxb">
-                                <rect key="frame" x="0.0" y="124" width="414" height="668"/>
+                                <rect key="frame" x="0.0" y="124" width="414" height="688"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cCC-Xs-BKe">
                                         <rect key="frame" x="103.66666666666669" y="0.0" width="207" height="289.66666666666669"/>
@@ -29,13 +29,13 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How would you rate &quot;The Movie Name&quot;?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JfO-YZ-Oxt">
-                                        <rect key="frame" x="30" y="314.66666666666669" width="354" height="233.33333333333331"/>
+                                        <rect key="frame" x="30" y="314.66666666666669" width="354" height="193.33333333333331"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LaP-Hw-G5d">
-                                        <rect key="frame" x="30" y="573" width="354" height="35"/>
+                                        <rect key="frame" x="30" y="533" width="354" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="OSi-lh-YSM"/>
                                         </constraints>
@@ -72,7 +72,7 @@
                                         </cells>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ICq-9t-95N">
-                                        <rect key="frame" x="40" y="633" width="334" height="35"/>
+                                        <rect key="frame" x="40" y="593" width="334" height="35"/>
                                         <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="lFR-ke-6bN"/>
@@ -83,6 +83,19 @@
                                         </state>
                                         <connections>
                                             <action selector="sendRatingButtonTapped:" destination="814-UE-rcX" eventType="touchUpInside" id="AIl-ET-FY5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S56-rF-5LB">
+                                        <rect key="frame" x="145.66666666666666" y="653" width="122.99999999999997" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="Mlm-01-ase"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <state key="normal" title="Remove Rating">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="removeRatingButtonTapped:" destination="814-UE-rcX" eventType="touchUpInside" id="UHE-cJ-yJP"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -104,7 +117,7 @@
                             <constraint firstItem="iwa-hC-yJM" firstAttribute="top" secondItem="Kdd-ST-FJs" secondAttribute="top" id="fOA-kT-szP"/>
                             <constraint firstItem="iwa-hC-yJM" firstAttribute="leading" secondItem="Kdd-ST-FJs" secondAttribute="leading" id="hDc-YY-ep4"/>
                             <constraint firstItem="Kdd-ST-FJs" firstAttribute="bottom" secondItem="iwa-hC-yJM" secondAttribute="bottom" id="n9K-jv-CvU"/>
-                            <constraint firstItem="Kdd-ST-FJs" firstAttribute="bottom" secondItem="lce-fR-Qxb" secondAttribute="bottom" constant="70" id="r6a-Ns-kdN"/>
+                            <constraint firstItem="Kdd-ST-FJs" firstAttribute="bottom" secondItem="lce-fR-Qxb" secondAttribute="bottom" constant="50" id="r6a-Ns-kdN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kdd-ST-FJs"/>
                     </view>
@@ -112,6 +125,7 @@
                         <outlet property="backgroundImageView" destination="iwa-hC-yJM" id="JlY-HL-sxe"/>
                         <outlet property="posterMovieImageView" destination="cCC-Xs-BKe" id="8ga-L9-LPm"/>
                         <outlet property="questionLabel" destination="JfO-YZ-Oxt" id="JZG-CA-GSv"/>
+                        <outlet property="removeRatingButtonOutlet" destination="S56-rF-5LB" id="GEN-YS-nLZ"/>
                         <outlet property="starCollectionView" destination="LaP-Hw-G5d" id="y32-hK-mfc"/>
                     </connections>
                 </viewController>

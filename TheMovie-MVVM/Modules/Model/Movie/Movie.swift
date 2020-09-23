@@ -15,9 +15,10 @@ struct Movie: Decodable {
     let backdropPath:String?
     let title:String
     let releaseDate:String
-    let rating:Float
+    let voteAverage:Float
     let voteCount: Int
     let overview:String
+    let ratingOfUser: Int?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -25,9 +26,10 @@ struct Movie: Decodable {
         case backdropPath = "backdrop_path"
         case title
         case releaseDate = "release_date"
-        case rating = "vote_average"
+        case voteAverage = "vote_average"
         case voteCount = "vote_count"
         case overview
+        case ratingOfUser = "rating"
     }
     
 //    init(movieObject: MovieObject) {

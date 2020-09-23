@@ -95,24 +95,24 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nm4-VR-0V2">
-                                                                <rect key="frame" x="199" y="10.5" width="199" height="59"/>
+                                                                <rect key="frame" x="199" y="10" width="199" height="60"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Me9-Tt-Fbi">
                                                                         <rect key="frame" x="87" y="0.0" width="25" height="25"/>
-                                                                        <color key="tintColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="tintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="25" id="e7v-4N-nn8"/>
                                                                             <constraint firstAttribute="width" secondItem="Me9-Tt-Fbi" secondAttribute="height" id="emE-d6-RsZ"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate This" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLY-6C-Rex">
-                                                                        <rect key="frame" x="69.5" y="25" width="60.5" height="16"/>
-                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                                        <rect key="frame" x="67.5" y="25" width="64.5" height="17"/>
+                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Your Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQU-Rs-lhr">
-                                                                        <rect key="frame" x="60" y="41" width="79" height="18"/>
+                                                                        <rect key="frame" x="60" y="42" width="79" height="18"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -132,7 +132,7 @@
                                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o8m-nq-AAu" userLabel="Rate Movie Button">
-                                                <rect key="frame" x="207" y="532.5" width="199" height="59"/>
+                                                <rect key="frame" x="207" y="532" width="199" height="60"/>
                                                 <connections>
                                                     <action selector="rateMovieTapped:" destination="VT9-4C-eBx" eventType="touchUpInside" id="4Ib-oT-78x"/>
                                                 </connections>
@@ -179,6 +179,7 @@
                         <outlet property="ratingOfMovieLabel" destination="sIr-LA-wSm" id="WPX-9i-arF"/>
                         <outlet property="ratingOfUserLabel" destination="fLY-6C-Rex" id="iO5-Il-9sC"/>
                         <outlet property="releaseDateLabel" destination="X1Y-wF-eBV" id="IOc-XM-eVw"/>
+                        <outlet property="starImageView" destination="Me9-Tt-Fbi" id="qRp-sH-fwK"/>
                         <outlet property="titleMovieLabel" destination="aPa-tp-nrV" id="c5G-8U-a1p"/>
                         <outlet property="trailerChildView" destination="638-CD-uYc" id="az9-0t-RpB"/>
                         <outlet property="voteCountLabel" destination="3MX-zh-J6D" id="Apz-bl-qXa"/>

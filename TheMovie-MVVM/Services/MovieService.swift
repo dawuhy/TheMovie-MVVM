@@ -97,14 +97,46 @@ class MovieServie {
         }
     }
     
-    func ratingMovie(guestSessionID: String, movieID: Int, point: Double, completion: @escaping (Result<RatingMovieResponse, Error>) -> Void) {
+    func ratingMovie(guestSessionID: String, movieID: Int, point: Double, completion: @escaping (Result<RatingMovieStatus, Error>) -> Void) {
         movieProvider.request(.ratingMovie(guestSessionID: guestSessionID, movieID: movieID, point: point)) { (result) in
             switch result {
             case .failure(let error):
                 completion(.failure(error))
             case .success(let response):
                 do {
-                    let ratingMovieResult = try JSONDecoder().decode(RatingMovieResponse.self, from: response.data)
+                    let ratingMovieResult = try JSONDecoder().decode(RatingMovieStatus.self, from: response.data)
+                    completion(.success(ratingMovieResult))
+                } catch (let error) {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    func getRatedMovies(guestSessionID: String, completion: @escaping (Result<MovieResult, Error>) -> Void) {
+        movieProvider.request(.getRatedMovies(guestSessionID: guestSessionID)) { (result) in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let response):
+                do {
+                    let movieResult = try JSONDecoder().decode(MovieResult.self, from: response.data)
+                    completion(.success(movieResult))
+                } catch (let error) {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+    
+    func deleteMovieRating(guestSessionID: String, movieID: Int, completion: @escaping (Result<RatingMovieStatus, Error>) -> Void) {
+        movieProvider.request(.deleteMovieRating(guestSessionID: guestSessionID, movieID: movieID)) { (result) in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let response):
+                do {
+                    let ratingMovieResult = try JSONDecoder().decode(RatingMovieStatus.self, from: response.data)
                     completion(.success(ratingMovieResult))
                 } catch (let error) {
                     completion(.failure(error))
