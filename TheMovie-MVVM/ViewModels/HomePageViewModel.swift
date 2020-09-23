@@ -20,8 +20,8 @@ class HomePageViewModel {
         }
     }
     
-    func completionHandler(_ callBack: ((MovieResult) -> Void)?) {
-        self.callBackMovieAction = callBack
+    func completionHandler(_ callBackMovieAction: ((MovieResult) -> Void)?) {
+        self.callBackMovieAction = callBackMovieAction
     }
     
     private func getMovie(page: Int, type: MovieType) {
