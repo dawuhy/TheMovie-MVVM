@@ -28,7 +28,7 @@ class HomePageViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel.registerActions {[weak self] (movieResult) in
+        viewModel.completionHandler {[weak self] (movieResult) in
             self?.data = movieResult.arrayMovie
         }
     }
