@@ -144,4 +144,20 @@ class MovieServie {
             }
         }
     }
+    
+    func getSimilarMovies(movieID: Int, page: Int, completion: @escaping (Result<MovieResult, Error>) -> Void) {
+        movieProvider.request(.getSimilarMovies(movieId: movieID, page: page)) { (result) in
+            switch result {
+            case .failure(let error):
+                completion(.failure(error))
+            case .success(let response):
+                do {
+                    let movieResult = try JSONDecoder().decode(MovieResult.self, from: response.data)
+                    completion(.success(movieResult))
+                } catch (let error) {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
 }

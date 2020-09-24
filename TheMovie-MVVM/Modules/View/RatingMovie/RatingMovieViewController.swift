@@ -23,7 +23,7 @@ class RatingMovieViewController: UIViewController {
     private var statusMessage: String? {
         didSet {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -61,7 +61,7 @@ class RatingMovieViewController: UIViewController {
     }
     
     func bindViewModel() {
-        viewModel.completionHandler { [weak self] (ratingMovieResponse) in
+        viewModel.ratingMovieCompletionHandler { [weak self] (ratingMovieResponse) in
             guard let self = self else {return}
             self.statusMessage = ratingMovieResponse.status_message
             print(self.statusMessage!)
@@ -83,6 +83,9 @@ class RatingMovieViewController: UIViewController {
     @IBAction func removeRatingButtonTapped(_ sender: Any) {
         viewModel.deleteMovieRatingAction(keychain.get("session_id")!, movie.id)
         currentVotePoint = 0
+    }
+    @IBAction func dismissVCButtonTapped(_ sender: Any) {
+        dismiss(animated: true)
     }
     
     

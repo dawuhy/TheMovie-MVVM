@@ -106,15 +106,29 @@
                                     <constraint firstItem="ICq-9t-95N" firstAttribute="leading" secondItem="lce-fR-Qxb" secondAttribute="leading" constant="40" id="lja-cQ-2iF"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7U-ES-Jrr">
+                                <rect key="frame" x="20" y="66.666666666666657" width="20" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="KPb-VJ-t4H"/>
+                                    <constraint firstAttribute="width" constant="20" id="gn3-cF-w9W"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="dismissVCButtonTapped:" destination="814-UE-rcX" eventType="touchUpInside" id="xV8-ru-5rt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="b7U-ES-Jrr" firstAttribute="top" secondItem="Kdd-ST-FJs" secondAttribute="top" constant="20" id="0n0-4d-Mfj"/>
                             <constraint firstItem="lce-fR-Qxb" firstAttribute="leading" secondItem="Kdd-ST-FJs" secondAttribute="leading" id="3Ab-n7-Y0D"/>
                             <constraint firstItem="Kdd-ST-FJs" firstAttribute="trailing" secondItem="iwa-hC-yJM" secondAttribute="trailing" id="49q-71-QX9"/>
                             <constraint firstItem="Kdd-ST-FJs" firstAttribute="trailing" secondItem="lce-fR-Qxb" secondAttribute="trailing" id="9al-da-cgZ"/>
                             <constraint firstItem="lce-fR-Qxb" firstAttribute="top" secondItem="Kdd-ST-FJs" secondAttribute="top" constant="80" id="BXu-7M-W0z"/>
                             <constraint firstItem="cCC-Xs-BKe" firstAttribute="width" secondItem="Kdd-ST-FJs" secondAttribute="width" multiplier="0.5" id="EWA-A6-JPX"/>
                             <constraint firstItem="iwa-hC-yJM" firstAttribute="top" secondItem="Kdd-ST-FJs" secondAttribute="top" id="fOA-kT-szP"/>
+                            <constraint firstItem="b7U-ES-Jrr" firstAttribute="leading" secondItem="Kdd-ST-FJs" secondAttribute="leading" constant="20" id="gus-hI-n4w"/>
                             <constraint firstItem="iwa-hC-yJM" firstAttribute="leading" secondItem="Kdd-ST-FJs" secondAttribute="leading" id="hDc-YY-ep4"/>
                             <constraint firstItem="Kdd-ST-FJs" firstAttribute="bottom" secondItem="iwa-hC-yJM" secondAttribute="bottom" id="n9K-jv-CvU"/>
                             <constraint firstItem="Kdd-ST-FJs" firstAttribute="bottom" secondItem="lce-fR-Qxb" secondAttribute="bottom" constant="50" id="r6a-Ns-kdN"/>
@@ -136,5 +150,6 @@
     </scenes>
     <resources>
         <image name="star" catalog="system" width="128" height="116"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>

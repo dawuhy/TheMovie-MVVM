@@ -43,6 +43,12 @@ class HomePageViewModel {
     // Output
     var getGuestSessionIDAction: (() -> Void)!
     var setUpGuestSessionIDAction: (() -> Void)!
+    
+    var getRatedMoviesAction: ((_ guestSessionID: String) -> Void)!
+    private var callBackRatedMoviesAction: ((_ movieResult: MovieResult) -> Void)?
+    public func getRatedMoviesCompletionHandler(_ callBackRatedMoviesAction: @escaping (_ movieResult: MovieResult) -> Void) {
+        self.callBackRatedMoviesAction = callBackRatedMoviesAction
+    }
 
     
     init() {
@@ -53,13 +59,15 @@ class HomePageViewModel {
         setUpGuestSessionIDAction = { [weak self] in
             self?.setUpGuestSessionID()
         }
+        
+        getRatedMoviesAction = { [weak self] (guestSessionID) in
+            self?.getRatedMovies(guestSessionID: guestSessionID)
+        }
     }
     
     public func sessionIDCompletionHandler(_ callBackSessionIDAction: @escaping (GuestSessionIDResult) -> Void) {
         self.callBackSessionIDAction = callBackSessionIDAction
     }
-    
-
     
     private func getGuestSessionID() {
         service.getGuestSessionID { [weak self] (result) in
@@ -79,5 +87,16 @@ class HomePageViewModel {
             self.getGuestSessionIDAction()
         }
         print("CURRENT SESSION ID: \(String(describing: keychain.get("session_id")))")
+    }
+    
+    private func getRatedMovies(guestSessionID: String) {
+        service.getRatedMovies(guestSessionID: guestSessionID) { (result) in
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let movieResult):
+                self.callBackRatedMoviesAction?(movieResult)
+            }
+        }
     }
 }

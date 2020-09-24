@@ -23,11 +23,20 @@ class HomePageViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel.setUpGuestSessionIDAction()
+        viewModel.getRatedMoviesAction(keychain.get("session_id")!)
         bindViewModel()
         
         setUpChildView(parentView: topRatedMovieChildView, movieType: .top_rated)
         setUpChildView(parentView: popularMovieChildView, movieType: .popular)
         setUpChildView(parentView: nowPlayingMovieChildView, movieType: .now_playing)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.showSpinner(onView: self.view)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.removeSpinner()
+        }
     }
     
     func setUpChildView(parentView: UIView, movieType: MovieType) {
@@ -55,6 +64,13 @@ class HomePageViewController: UIViewController {
             guard let self = self else {return}
             self.keychain.set(guestSessionIDResult.guestSessionID, forKey: "session_id")
             print(self.keychain.get("session_id")!)
+        }
+        
+        viewModel.getRatedMoviesCompletionHandler { /* [weak self]*/ (movieResult) in
+//            guard let self = self else {return}
+//            self.ratedMovieList = movieResult.arrayMovie
+//            print(self.ratedMovieList.count)
+            User.listRatedMovie = movieResult.arrayMovie
         }
     }
 }

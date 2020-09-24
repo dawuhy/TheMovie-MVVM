@@ -10,19 +10,17 @@ import Foundation
 
 class MovieDetailViewModel {
     let service = MovieServie()
-    // Output
+
     var getRatedMoviesAction: ((_ guestSessionID: String) -> Void)!
-    // Input
     private var callBackRatedMoviesAction: ((_ movieResult: MovieResult) -> Void)?
+    public func getRatedMoviesCompletionHandler(_ callBackRatedMoviesAction: @escaping (_ movieResult: MovieResult) -> Void) {
+        self.callBackRatedMoviesAction = callBackRatedMoviesAction
+    }
     
     init() {
         getRatedMoviesAction = { [weak self] (guestSessionID) in
             self?.getRatedMovies(guestSessionID: guestSessionID)
         }
-    }
-    
-    public func getRatedMoviesCompletionHandler(_ callBackRatedMoviesAction: @escaping (_ movieResult: MovieResult) -> Void) {
-        self.callBackRatedMoviesAction = callBackRatedMoviesAction
     }
     
     private func getRatedMovies(guestSessionID: String) {

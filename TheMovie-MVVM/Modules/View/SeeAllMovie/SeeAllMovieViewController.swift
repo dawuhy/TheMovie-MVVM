@@ -11,41 +11,47 @@ import UIKit
 class SeeAllMovieViewController: UIViewController {
     // Outlets
     @IBOutlet weak var movieCollectionView: UICollectionView!
-
+    var viewModel = GroupMovieViewModel()
+    private var page: Int = 1
+    var movieType: MovieType?
+    var rootMovieID: Int?
     var arrayMovie: [Movie] = [] {
         didSet {
             movieCollectionView.reloadData()
         }
     }
-    var viewModel = GroupMovieViewModel()
-//    private var output: GroupMovieViewModel.Output?
-    var movieType: MovieType!
-    private var page: Int = 1
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpView()
         bindViewModel()
-//        output?.getMovieAction?(page, movieType)
-        viewModel.getMovieAction(page, movieType)
+        
+        if let movieType = movieType {
+            viewModel.getMovieFromTypeAction(page, movieType)
+        } else if let rootMovieID = rootMovieID {
+            viewModel.getSimilarMovieAction(rootMovieID, page)
+        }
     }
-
+    
     func setUpView() {
-        self.title = movieType.title()
+        if let movieType = movieType {
+            self.title = movieType.title()
+        }
         movieCollectionView.dataSource = self
         movieCollectionView.delegate = self
-
+        
         let nibMovieCell = UINib(nibName: MovieCell.identifier, bundle: nil)
         movieCollectionView.register(nibMovieCell, forCellWithReuseIdentifier: MovieCell.identifier)
     }
-
+    
     func bindViewModel() {
-//        let input = GroupMovieViewModel.Input { [weak self] (movieResult) in
-//            self?.arrayMovie.append(contentsOf: movieResult.arrayMovie)
-//        }
-//        self.output = viewModel.bindAction(input: input)
-        viewModel.callBackMovieAction = { [weak self] (movieResult) in
+        viewModel.getMovieCompletionHandler { [weak self] (movieResult) in
+            guard let self = self else {return}
+            self.arrayMovie.append(contentsOf: movieResult.arrayMovie)
+        }
+        
+        viewModel.getSimilarMovieCompletionHandler { [weak self] (movieResult) in
             guard let self = self else {return}
             self.arrayMovie.append(contentsOf: movieResult.arrayMovie)
         }
@@ -56,13 +62,13 @@ extension SeeAllMovieViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         arrayMovie.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = movieCollectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.identifier, for: indexPath) as! MovieCell
-
+        
         let movie = arrayMovie[indexPath.row]
         cell.configure(movie: movie)
-
+        
         return cell
     }
 }
@@ -72,8 +78,9 @@ extension SeeAllMovieViewController: UICollectionViewDelegate {
         if movieCollectionView.contentOffset.y >= (movieCollectionView.contentSize.height - movieCollectionView.frame.size.height) {
             // MARK: Load more movie
             page += 1
-//            output?.getMovieAction?(page, movieType)
-            viewModel.getMovieAction(page, movieType)
+            if let movieType = movieType {
+                viewModel.getMovieFromTypeAction(page, movieType)
+            }
         }
     }
     
@@ -92,7 +99,7 @@ extension SeeAllMovieViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = movieCollectionView.bounds.width / 2 - 4
         let height = width * 1.5
-
+        
         return .init(width: width, height: height)
     }
 }

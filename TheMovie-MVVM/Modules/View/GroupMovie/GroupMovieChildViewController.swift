@@ -22,7 +22,8 @@ class GroupMovieChildViewController: UIViewController {
             movieCollectionView.reloadData()
         }
     }
-    private var movieType: MovieType!
+    private var movieType: MovieType?
+    private var rootMovieID: Int?
     private let keychain = KeychainSwift()
     
     static func initGroupMovieChillView(movieType: MovieType) -> GroupMovieChildViewController {
@@ -32,24 +33,46 @@ class GroupMovieChildViewController: UIViewController {
         return groupMovieChildViewController
     }
     
+    static func initGroupSimilarMovieChillView(rootMovieID: Int) -> GroupMovieChildViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let groupMovieChildViewController = storyboard.instantiateViewController(identifier: "GroupMovieChildViewController") as! GroupMovieChildViewController
+        groupMovieChildViewController.rootMovieID  = rootMovieID
+        return groupMovieChildViewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpView()
+        
+        if let movieType = movieType {
+            viewModel.getMovieFromTypeAction(1, movieType)
+        } else if let rootMovieID = rootMovieID {
+            viewModel.getSimilarMovieAction(rootMovieID, 1)
+        }
+        
         bindViewModel()
-//        output?.getMovieAction?(1, movieType)
-        viewModel.getMovieAction(1, movieType)
     }
     
     private func bindViewModel() {
-        viewModel.completionHandler { [weak self] (movieResult) in
+        viewModel.getMovieCompletionHandler { [weak self] (movieResult) in
+            guard let self = self else {return}
+            self.arrayMovie.append(contentsOf: movieResult.arrayMovie)
+        }
+        
+        viewModel.getSimilarMovieCompletionHandler { [weak self] (movieResult) in
             guard let self = self else {return}
             self.arrayMovie.append(contentsOf: movieResult.arrayMovie)
         }
     }
 
     func setUpView() {
-        titleHeaderLabel.text = movieType.title()
+        if let movieType = movieType {
+            titleHeaderLabel.text = movieType.title()
+        } else if rootMovieID != nil {
+            titleHeaderLabel.text = "Similar Movies"
+        }
+        
         // Collection view
         movieCollectionView.dataSource = self
         movieCollectionView.delegate = self
@@ -59,7 +82,11 @@ class GroupMovieChildViewController: UIViewController {
     
     @IBAction func didTapSeeAllButton(_ sender: Any) {
         let listMovieViewController = SeeAllMovieViewController()
-        listMovieViewController.movieType = movieType
+        if let movieType = movieType {
+            listMovieViewController.movieType = movieType
+        } else if rootMovieID != nil {
+            listMovieViewController.rootMovieID = rootMovieID
+        }
         parent?.navigationController?.pushViewController(listMovieViewController, animated: true)
     }
 }

@@ -75,7 +75,7 @@ extension MovieAPI: TargetType {
             return .get
         case .ratingMovie:
             return .post
-        case .getRatedMovies(guestSessionID: _):
+        case .getRatedMovies:
             return .get
         case .deleteMovieRating:
             return .delete

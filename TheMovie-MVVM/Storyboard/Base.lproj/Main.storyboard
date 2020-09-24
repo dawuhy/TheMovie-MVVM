@@ -24,15 +24,25 @@
             </objects>
             <point key="canvasLocation" x="-1375" y="-777"/>
         </scene>
+        <!--SearchPageStoryboard-->
+        <scene sceneID="pEs-M1-3IT">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SearchPageStoryboard" id="HCS-af-fld" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" landscapeImage="magnifyingglass" id="Hh4-mO-6Mm"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YXQ-5y-9mA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-751" y="-335"/>
+        </scene>
         <!--HomePageStoryBoard-->
         <scene sceneID="HaM-bV-KXy">
             <objects>
                 <viewControllerPlaceholder storyboardName="HomePageStoryBoard" id="j8i-YX-G8d" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="U6w-EK-0Hp"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" landscapeImage="house" id="U6w-EK-0Hp"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DOZ-i2-tGh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2061" y="-349"/>
+            <point key="canvasLocation" x="-2232" y="-329"/>
         </scene>
         <!--Group Movie Child View Controller-->
         <scene sceneID="bPo-pU-tRH">
@@ -123,5 +133,7 @@
     </scenes>
     <resources>
         <image name="film" width="24" height="24"/>
+        <image name="house" catalog="system" width="128" height="110"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
     </resources>
 </document>

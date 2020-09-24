@@ -11,30 +11,52 @@ import Foundation
 class GroupMovieViewModel {
     
     private let service = MovieServie()
-    var getMovieAction: ((_ page: Int, _ movieType: MovieType) -> Void)!
-    var callBackMovieAction: ((MovieResult) -> Void)!
+    var getMovieFromTypeAction: ((_ page: Int, _ movieType: MovieType) -> Void)!
+    var getSimilarMovieAction: ((_ movieID: Int, _ page: Int) -> Void)!
+    
+    private var callBackGetMovieAction: ((MovieResult) -> Void)?
+    private var callBackGetSimilarMovieAction: ((MovieResult) -> Void)?
     
     init() {
-        getMovieAction = { [weak self] (page, movieType) in
+        getMovieFromTypeAction = { [weak self] (page, movieType) in
             guard let self = self else {return}
-            self.getMovie(page: page, movieType: movieType)
+            self.getMovieFromType(page: page, movieType: movieType)
+        }
+        
+        getSimilarMovieAction = { [weak self] (movieID, page) in
+            guard let self = self else {return}
+            self.getSimilarMovie(movieID: movieID, page: page)
         }
     }
 
-    private func getMovie(page: Int, movieType: MovieType) {
+    private func getMovieFromType(page: Int, movieType: MovieType) {
         service.getMovies(page: page, typeMovie: movieType) { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
             case .success(let movieResult):
-//                self?.input?.callBackMovieAction?(movieResult)
-                self?.callBackMovieAction(movieResult)
+                self?.callBackGetMovieAction?(movieResult)
             }
         }
     }
     
-    func completionHandler(_ callBackMovieAction: @escaping (MovieResult) -> Void) {
-        self.callBackMovieAction = callBackMovieAction
+    private func getSimilarMovie(movieID: Int, page: Int) {
+        service.getSimilarMovies(movieID: movieID, page: page) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let movieResult):
+                self?.callBackGetSimilarMovieAction?(movieResult)
+            }
+        }
+    }
+    
+    func getMovieCompletionHandler(_ callBackGetMovieAction: @escaping (MovieResult) -> Void) {
+        self.callBackGetMovieAction = callBackGetMovieAction
+    }
+    
+    func getSimilarMovieCompletionHandler(_ callBackGetMovieAction: @escaping (MovieResult) -> Void) {
+        self.callBackGetSimilarMovieAction = callBackGetMovieAction
     }
     
     deinit {

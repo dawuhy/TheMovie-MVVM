@@ -20,13 +20,13 @@ enum MovieType {
     func title() -> String {
         switch self {
         case .now_playing:
-            return "Now playing"
+            return "Now Playing"
         case .popular:
             return "Popular"
         case .top_rated:
-            return "Top rated"
+            return "Top Rated"
         case .similar:
-            return "Similar movies"
+            return "Similar Movies"
         }
     }
 }
@@ -83,4 +83,8 @@ extension UIViewController {
             vSpinner = nil
         }
     }
+}
+
+class User {
+    static var listRatedMovie: [Movie] = []
 }

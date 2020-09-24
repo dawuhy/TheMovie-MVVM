@@ -18,7 +18,7 @@ struct Movie: Decodable {
     let voteAverage:Float
     let voteCount: Int
     let overview:String
-    let ratingOfUser: Int?
+    var ratingOfUser: Int?
     
     enum CodingKeys: String, CodingKey {
         case id

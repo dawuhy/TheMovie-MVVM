@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AMc-BH-cmx">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Search Page View Controller-->
+        <scene sceneID="1lk-ZY-QKX">
+            <objects>
+                <viewController id="gtk-Z1-e8c" customClass="SearchPageViewController" customModule="TheMovie_MVVM" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uSy-15-ahp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Rr1-Yf-rcu">
+                                <rect key="frame" x="0.0" y="88" width="414" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="7gV-4J-Yrm"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Rr1-Yf-rcu" firstAttribute="leading" secondItem="o3F-7h-k1G" secondAttribute="leading" id="7Yx-K0-5Gj"/>
+                            <constraint firstItem="Rr1-Yf-rcu" firstAttribute="top" secondItem="o3F-7h-k1G" secondAttribute="top" id="QSg-2e-ccE"/>
+                            <constraint firstItem="Rr1-Yf-rcu" firstAttribute="trailing" secondItem="o3F-7h-k1G" secondAttribute="trailing" id="YkB-3S-Anx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="o3F-7h-k1G"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZMQ-fD-RGJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fPU-NG-gfO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1110.144927536232" y="-524.33035714285711"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="Oje-LK-VyY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AMc-BH-cmx" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="WxG-mA-X7M"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5gz-9m-Kxp">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gtk-Z1-e8c" kind="relationship" relationship="rootViewController" id="nJQ-3S-H4i"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AcP-eB-MCF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="200.00000000000003" y="-524.33035714285711"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+    </resources>
+</document>

@@ -28,12 +28,13 @@ class RatingMovieViewModel {
         }
     }
     
-    public func completionHandler(_ callBackAction: @escaping (RatingMovieStatus) -> Void) {
-        self.ratingMovieCallBackAction = callBackAction
+    // Completion handler
+    public func ratingMovieCompletionHandler(_ ratingMovieCallBackAction: @escaping (RatingMovieStatus) -> Void) {
+        self.ratingMovieCallBackAction = ratingMovieCallBackAction
     }
     
-    public func deleteMovieRatingCompletionHandler(_ callBackAction: @escaping (RatingMovieStatus) -> Void) {
-        self.deleteMovieRatingCallBackAction = callBackAction
+    public func deleteMovieRatingCompletionHandler(_ deleteMovieRatingCallBackAction: @escaping (RatingMovieStatus) -> Void) {
+        self.deleteMovieRatingCallBackAction = deleteMovieRatingCallBackAction
     }
     
     private func ratingMovie(guestSessionID: String, movieID: Int, point: Double) {
@@ -57,5 +58,9 @@ class RatingMovieViewModel {
                 self.deleteMovieRatingCallBackAction?(ratingStatusResponse)
             }
         }
+    }
+    
+    deinit {
+        print("RatingMovieViewModel deinit")
     }
 }
