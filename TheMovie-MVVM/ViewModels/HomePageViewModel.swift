@@ -9,16 +9,16 @@
 import Foundation
 
 typealias ReceivedDataAction = (MovieResult) -> Void
-typealias LoadDataAction = (Int, MovieType) -> Void
+typealias LoadDataAction = (_ page: Int, _ movieType: MovieType) -> Void
 
 class HomePageViewModel {
     
     struct Input {
-       var receivedDataAction: ReceivedDataAction?
+        var callBackGetMovieAction: ReceivedDataAction?
     }
     
     struct Output {
-        var loadDataAction: LoadDataAction?
+        var getMovieAction: LoadDataAction?
     }
     
     private let service = MovieServie()
@@ -32,7 +32,7 @@ class HomePageViewModel {
             self?.getMovie(page: page, type: type)
         }
         
-       return Output(loadDataAction: loadDataAction)
+        return Output(getMovieAction: loadDataAction)
     }
 
     private func getMovie(page: Int, type: MovieType) {
@@ -41,7 +41,7 @@ class HomePageViewModel {
             case .failure(let error):
                 print(error.localizedDescription)
             case .success(let movieResult):
-                self?.input?.receivedDataAction?(movieResult)
+                self?.input?.callBackGetMovieAction?(movieResult)
             }
         }
     }
