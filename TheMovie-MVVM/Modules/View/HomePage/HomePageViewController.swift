@@ -24,6 +24,7 @@ class HomePageViewController: UIViewController {
         
         viewModel.setUpGuestSessionIDAction()
         viewModel.getRatedMoviesAction(keychain.get("session_id")!)
+//        print(keychain.get("session_id")!)
         bindViewModel()
         
         setUpChildView(parentView: topRatedMovieChildView, movieType: .top_rated)
@@ -60,7 +61,7 @@ class HomePageViewController: UIViewController {
 //        }
 //
 //        self.output = viewModel.bindAction(input: input)
-        viewModel.sessionIDCompletionHandler { [weak self] (guestSessionIDResult) in
+        viewModel.setUpGuestSessionIDCompletionHandler { [weak self] (guestSessionIDResult) in
             guard let self = self else {return}
             self.keychain.set(guestSessionIDResult.guestSessionID, forKey: "session_id")
             print(self.keychain.get("session_id")!)
@@ -72,5 +73,7 @@ class HomePageViewController: UIViewController {
 //            print(self.ratedMovieList.count)
             User.listRatedMovie = movieResult.arrayMovie
         }
+        
+        
     }
 }

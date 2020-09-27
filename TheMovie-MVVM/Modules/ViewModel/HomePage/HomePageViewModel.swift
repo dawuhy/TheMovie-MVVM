@@ -39,22 +39,19 @@ class HomePageViewModel {
     private let service = MovieServie()
     private let keychain = KeychainSwift()
     // Input
-    private var callBackSessionIDAction: ((GuestSessionIDResult) -> Void)?
+//    private var callBackSessionIDAction: ((GuestSessionIDResult) -> Void)?
     // Output
-    var getGuestSessionIDAction: (() -> Void)!
+//    var getGuestSessionIDAction: (() -> Void)!
     var setUpGuestSessionIDAction: (() -> Void)!
     
     var getRatedMoviesAction: ((_ guestSessionID: String) -> Void)!
     private var callBackRatedMoviesAction: ((_ movieResult: MovieResult) -> Void)?
-    public func getRatedMoviesCompletionHandler(_ callBackRatedMoviesAction: @escaping (_ movieResult: MovieResult) -> Void) {
-        self.callBackRatedMoviesAction = callBackRatedMoviesAction
-    }
-
+    private var callBackSetUpGuestSessionID: ((_ guestSessionIDResult: GuestSessionIDResult) -> Void)?
     
     init() {
-        getGuestSessionIDAction = { [weak self] in
-            self?.getGuestSessionID()
-        }
+//        getGuestSessionIDAction = { [weak self] in
+//            self?.getGuestSessionID()
+//        }
         
         setUpGuestSessionIDAction = { [weak self] in
             self?.setUpGuestSessionID()
@@ -65,26 +62,36 @@ class HomePageViewModel {
         }
     }
     
-    public func sessionIDCompletionHandler(_ callBackSessionIDAction: @escaping (GuestSessionIDResult) -> Void) {
-        self.callBackSessionIDAction = callBackSessionIDAction
+    public func setUpGuestSessionIDCompletionHandler(_ callBackSetUpGuestSessionID: @escaping (GuestSessionIDResult) -> Void) {
+        self.callBackSetUpGuestSessionID = callBackSetUpGuestSessionID
     }
     
-    private func getGuestSessionID() {
-        service.getGuestSessionID { [weak self] (result) in
-            switch result {
-            case .failure(let error):
-                print(error.localizedDescription)
-            case .success(let guestSessionIDResult):
-                //                self?.input?.completionHandler?(guestSessionIDResult)
-                self?.callBackSessionIDAction?(guestSessionIDResult)
-            }
-        }
+    public func getRatedMoviesCompletionHandler(_ callBackRatedMoviesAction: @escaping (_ movieResult: MovieResult) -> Void) {
+        self.callBackRatedMoviesAction = callBackRatedMoviesAction
     }
+    
+//    private func getGuestSessionID() {
+//        service.getGuestSessionID { [weak self] (result) in
+//            switch result {
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            case .success(let guestSessionIDResult):
+//                //                self?.input?.completionHandler?(guestSessionIDResult)
+//                self?.callBackSessionIDAction?(guestSessionIDResult)
+//            }
+//        }
+//    }
     
     private func setUpGuestSessionID() {
         if keychain.get("session_id") == nil {
-            //            output?.getGuestSessionIDAction?()
-            self.getGuestSessionIDAction()
+            service.getGuestSessionID { [weak self] (result) in
+                switch result {
+                case .failure(let error):
+                    print(error)
+                case .success(let guestSessionIDResult):
+                    self?.callBackSetUpGuestSessionID?(guestSessionIDResult)
+                }
+            }
         }
         print("CURRENT SESSION ID: \(String(describing: keychain.get("session_id")))")
     }
